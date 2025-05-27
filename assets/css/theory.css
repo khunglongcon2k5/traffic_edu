@@ -1,0 +1,73 @@
+.header {
+    background: linear-gradient(to bottom, #0f6b9e, #3cd3ad);
+    color: white;
+    padding: 35px 20px;
+    text-align: center;
+}
+
+.menu {
+    background-color: #3890c0;
+    color: white;
+    margin: 0;
+    padding: 1px 30px;
+    font-size: 16px;
+}
+
+.footer {
+    background-color: #0f6b9e;
+    color: white;
+    text-align: center;
+    margin-top: 0;
+    padding: 10px;
+}
+
+/* nav gần giống các button và thường ở đầu trang */
+nav ul li {
+    display: inline-block;
+    /* Hiển thị các tags chiều ngang */
+    padding: 1px 25px;
+    height: 5px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    /* Bỏ gạch chân cho các tags Trang chủ, Luật giao thông, Biển Biển báo, Xử phạt, Kiểm tra */
+    color: white;
+    font-size: 20px;
+}
+
+/* a:hover là lớp giả được sd để áp dụng các styles cho thẻ <a> khi user di chuột qua liên kết */
+nav ul li a:hover {
+    text-decoration: underline;
+    /* Thêm gạch chân khi hover (tùy chọn) */
+    color: rgb(33, 202, 33);
+    /* Đổi màu chữ khi hover (tùy chọn) */
+}
+
+/*  */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
