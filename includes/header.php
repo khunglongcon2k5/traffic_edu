@@ -16,8 +16,8 @@
                         <?php if ($current_page == '50-cau-hoi-diem-liet-a2.php') echo 'class="active"'; ?>>Thi 50 Câu
                         Điểm Liệt A2</a></li>
                 <li>
-                    <?php if (isset($_SESSION['name'])): ?> <div class="user-info">
-                            <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['name']); ?>
+                    <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
+                            <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
                             <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
                         </div>
                     <?php endif; ?>

@@ -3,7 +3,7 @@ session_start();
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 
-// Check session timeout (30 minutes)
+// Kiểm tra thời gian hết hạn phiên (30 phút)
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 1800)) {
     session_unset();
     session_destroy();
@@ -13,12 +13,38 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 
 }
 $_SESSION['last_activity'] = time();
 
-// Generate CSRF token
+// Tạo CSRF token
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
+
+// Xử lý hiển thị sidebar
+$sidebar = isset($_GET['sidebar']) ? $_GET['sidebar'] : '';
+$auth_tab = isset($_GET['tab']) ? $_GET['tab'] : 'login';
+$show_user_info = isset($_GET['show']) && $_GET['show'] === 'user_info';
+$show_change_password = isset($_GET['show']) && $_GET['show'] === 'change_password';
+
+// Lấy thông tin người dùng nếu cần
+$user_info = [];
+if ($show_user_info && isset($_SESSION['user']['id'])) {
+    $conn = new mysqli('localhost', 'root', '', 'traffic');
+    if (!$conn->connect_error) {
+        $userId = $_SESSION['user']['id'];
+        $stmt = $conn->prepare("SELECT name, email FROM users WHERE id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $user_info = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        $conn->close();
+    } else {
+        $_SESSION['message'] = 'Lỗi tải thông tin người dùng';
+    }
+}
+
+// Xử lý thông báo
 $message = isset($_SESSION['message']) ? htmlspecialchars($_SESSION['message']) : '';
-unset($_SESSION['message']);
+unset($_SESSION['message']); // Xóa thông báo ngay sau khi hiển thị
+unset($_SESSION['message_time']); // Xóa thời gian thông báo
 ?>
 
 <!DOCTYPE html>
@@ -46,11 +72,13 @@ unset($_SESSION['message']);
                 <li><a href="./pages/thi-bang-lai-xe-a1-online.php">Thi thử</a></li>
                 <li>
                     <?php if (isset($_SESSION['user']['name'])): ?>
-                    <span class="user-account data-logged-in">
-                        <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['user']['name']); ?>
-                    </span>
+                        <a href="?sidebar=logout" class="user-account">
+                            <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                        </a>
                     <?php else: ?>
-                    <a href="#" class="auth-link"><i class="fas fa-user"></i> Tài khoản</a>
+                        <a href="?sidebar=auth" class="auth-link">
+                            <i class="fas fa-user"></i> Tài khoản
+                        </a>
                     <?php endif; ?>
                 </li>
             </ul>
@@ -61,8 +89,8 @@ unset($_SESSION['message']);
         <div class="hero-content">
             <h1>TrafficEdu – Học Lái Xe</h1>
             <p>Học lý thuyết, ôn tập và thi thử để chuẩn bị cho kỳ thi bằng lái xe.</p>
-            <p>🚗 Chuẩn bị thi bằng lái với lý thuyết, ôn tập, thi thử. </p>
-            <p>📚 Học quy định giao thông, luật lái xe. </p>
+            <p>🚗 Chuẩn bị thi bằng lái với lý thuyết, ôn tập, thi thử.</p>
+            <p>📚 Học quy định giao thông, luật lái xe.</p>
             <p>📝 Luyện tập câu hỏi thực tế, kiểm tra kiến thức.</p>
             <p>🚦 Truy cập ngay để bắt đầu hành trình lái xe của bạn!</p>
             <p>🚀 <strong>TrafficEdu</strong> - Nơi bạn bắt đầu hành trình lái xe an toàn!</p>
@@ -91,17 +119,20 @@ unset($_SESSION['message']);
         </div>
     </section>
 
-    <div class="auth-sidebar" id="authSidebar">
-        <span class="close-sidebar"><i class="fas fa-times"></i></span>
+    <div class="auth-sidebar <?php echo $sidebar === 'auth' ? 'active' : ''; ?>">
+        <a href="index.php" class="close-sidebar"><i class="fas fa-times"></i></a>
         <h2 class="sidebar-title">Tài khoản</h2>
-        <?php if ($message): ?>
-        <div class="auth-message"><?php echo $message; ?></div>
+        <?php if ($message && $sidebar === 'auth'): ?>
+            <div class="auth-message"><?php echo $message; ?></div>
         <?php endif; ?>
         <div class="auth-tabs">
-            <button class="tab-button active" onclick="switchTab('loginForm')">Đăng nhập</button>
-            <button class="tab-button" onclick="switchTab('registerForm')">Đăng ký</button>
+            <a href="?sidebar=auth&tab=login"
+                class="tab-button <?php echo $auth_tab === 'login' ? 'active' : ''; ?>">Đăng nhập</a>
+            <a href="?sidebar=auth&tab=register"
+                class="tab-button <?php echo $auth_tab === 'register' ? 'active' : ''; ?>">Đăng ký</a>
         </div>
-        <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+        <form action="./includes/auth.php" method="POST"
+            class="auth-form <?php echo $auth_tab === 'login' ? 'active' : ''; ?>">
             <input type="hidden" name="action" value="login">
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <div class="input-group">
@@ -120,7 +151,8 @@ unset($_SESSION['message']);
             </div>
             <button type="submit" class="submit-btn">Đăng nhập</button>
         </form>
-        <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+        <form action="./includes/auth.php" method="POST"
+            class="auth-form <?php echo $auth_tab === 'register' ? 'active' : ''; ?>">
             <input type="hidden" name="action" value="register">
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <div class="input-group">
@@ -163,17 +195,24 @@ unset($_SESSION['message']);
         </form>
     </div>
 
-    <div class="logout-sidebar" id="logoutSidebar">
-        <span class="close-sidebar"><i class="fas fa-times"></i></span>
+    <div class="logout-sidebar <?php echo $sidebar === 'logout' ? 'active' : ''; ?>">
+        <a href="index.php" class="close-sidebar"><i class="fas fa-times"></i></a>
         <h2 class="sidebar-title">Tài khoản</h2>
         <div class="sidebar-buttons">
-            <button class="info-btn" onclick="toggleUserInfo()">Xem thông tin</button>
-            <button class="change-password-btn" onclick="toggleChangePassword()">Đổi mật khẩu</button>
+            <a href="?sidebar=logout&show=user_info" class="info-btn">Xem thông tin</a>
+            <a href="?sidebar=logout&show=change_password" class="change-password-btn">Đổi mật khẩu</a>
         </div>
-        <div class="user-info" id="userInfo"></div>
-        <div class="change-password-section hidden" id="changePasswordSection">
+        <div class="user-info <?php echo $show_user_info ? 'show' : ''; ?>">
+            <?php if ($show_user_info && $user_info): ?>
+                <p><strong>Tên:</strong> <?php echo htmlspecialchars($user_info['name']); ?></p>
+                <p><strong>Email:</strong> <?php echo htmlspecialchars($user_info['email']); ?></p>
+            <?php elseif ($show_user_info): ?>
+                <p>Không thể tải thông tin</p>
+            <?php endif; ?>
+        </div>
+        <div class="change-password-section <?php echo $show_change_password ? 'show' : ''; ?>">
             <h3 class="sidebar-subtitle">Đổi mật khẩu</h3>
-            <form id="changePasswordForm" onsubmit="handleChangePassword(event)">
+            <form action="./includes/change_password.php" method="POST" class="change-password-form">
                 <input type="hidden" name="action" value="change_password">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div class="input-group">
@@ -202,15 +241,21 @@ unset($_SESSION['message']);
                 <button type="submit" class="submit-btn">Đổi mật khẩu</button>
             </form>
         </div>
-        <form id="logoutForm" method="POST" action="logout.php">
+        <form action="./includes/logout.php" method="POST">
             <input type="hidden" name="action" value="logout">
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <button type="submit" class="logout-btn">Đăng xuất</button>
         </form>
     </div>
 
-    <div class="overlay" id="overlay"></div>
-    <div id="toastContainer" class="toast-container"></div>
+    <div class="overlay <?php echo $sidebar === 'auth' || $sidebar === 'logout' ? 'active' : ''; ?>"></div>
+    <?php if ($message): ?>
+        <div class="toast-container">
+            <div class="toast <?php echo strpos($message, 'thành công') !== false ? 'success' : 'error'; ?>">
+                <?php echo $message; ?>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <footer>
         <div class="footer-content">
@@ -219,7 +264,20 @@ unset($_SESSION['message']);
         </div>
     </footer>
 
-    <script src="./assets/js/main.js"></script>
+    <!-- JavaScript để tự động ẩn thông báo sau 5 giây -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(toast => {
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.remove(); // Xóa hoàn toàn toast khỏi DOM
+                    }, 500); // Chờ hiệu ứng opacity hoàn tất (0.5 giây)
+                }, 3000); // 5 giây
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -22,3 +22,4 @@ if ($user) {
 }
 
 $stmt->close();
+$conn->close();

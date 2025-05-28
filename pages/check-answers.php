@@ -2,8 +2,8 @@
 session_start();
 require_once '../includes/config.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['user']['id'])) { // thay vì user_id
+    header("Location: ../index.php?sidebar=auth&tab=login");
     exit();
 }
 
@@ -17,7 +17,7 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
     exit();
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user']['id'];
 $set_id = isset($_POST['set_id']) ? (int)($_POST['set_id']) : 0;
 
 function getAnswersForQuestion($conn, $question_id)
@@ -111,16 +111,17 @@ $has_critical_error = false;
 foreach ($questions as $questions_id => $question) {
     $user_answer_id = isset($_POST["question_{$questions_id}"]) ? (int)$_POST["question_{$questions_id}"] : 0;
     $answers = getAnswersForQuestion($conn, $questions_id);
-    $correct_answer_id = null;
+    $is_correct = false;
 
+    // Tìm câu trả lời đúng
     foreach ($answers as $answer) {
-        if ($answer['is_correct']) {
-            $correct_answer_id = $answer['answer_id'];
+        if ($answer['is_correct'] == 1 && $answer['answer_id'] == $user_answer_id) {
+            $is_correct = true;
             break;
         }
     }
 
-    $is_correct = ($user_answer_id == $correct_answer_id);
+    // Cập nhật số câu đúng/sai
     if ($is_correct) {
         $correct_count++;
     } else {
@@ -130,6 +131,7 @@ foreach ($questions as $questions_id => $question) {
         }
     }
 }
+
 
 // Save overall result to exam_results
 $pass = (!$has_critical_error && $correct_count >= 21);

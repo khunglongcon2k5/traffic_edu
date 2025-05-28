@@ -1,10 +1,10 @@
 <?php
 session_start();
-header('Content-Type: application/json');
 require_once 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user']['id']) || !isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    echo json_encode(['message' => 'Yêu cầu không hợp lệ', 'errorField' => 'general']);
+    $_SESSION['message'] = 'Yêu cầu không hợp lệ';
+    header('Location: ../index.php?sidebar=logout&show=change_password');
     exit;
 }
 
@@ -13,12 +13,14 @@ $newPassword = $_POST['newPassword'] ?? '';
 $confirmNewPassword = $_POST['confirmNewPassword'] ?? '';
 
 if (!$currentPassword || !$newPassword || !$confirmNewPassword) {
-    echo json_encode(['message' => 'Thiếu thông tin', 'errorField' => !$currentPassword ? 'currentPassword' : (!$newPassword ? 'newPassword' : 'confirmNewPassword')]);
+    $_SESSION['message'] = 'Thiếu thông tin';
+    header('Location: ../index.php?sidebar=logout&show=change_password');
     exit;
 }
 
 if ($newPassword !== $confirmNewPassword) {
-    echo json_encode(['message' => 'Mật khẩu mới không khớp', 'errorField' => 'confirmNewPassword']);
+    $_SESSION['message'] = 'Mật khẩu mới không khớp';
+    header('Location: ../index.php?sidebar=logout&show=change_password');
     exit;
 }
 
@@ -29,7 +31,8 @@ $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
 
 if (!$user || !password_verify($currentPassword, $user['password'])) {
-    echo json_encode(['message' => 'Mật khẩu hiện tại không đúng', 'errorField' => 'currentPassword']);
+    $_SESSION['message'] = 'Mật khẩu hiện tại không đúng';
+    header('Location: ../index.php?sidebar=logout&show=change_password');
     $stmt->close();
     exit;
 }
@@ -39,9 +42,12 @@ $stmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
 $stmt->bind_param("si", $hashedNewPassword, $userId);
 
 if ($stmt->execute()) {
-    echo json_encode(['message' => 'Đổi mật khẩu thành công']);
+    $_SESSION['message'] = 'Đổi mật khẩu thành công';
+    header('Location: ../index.php');
 } else {
-    echo json_encode(['message' => 'Đổi mật khẩu thất bại', 'errorField' => 'general']);
+    $_SESSION['message'] = 'Đổi mật khẩu thất bại';
+    header('Location: ../index.php?sidebar=logout&show=change_password');
 }
 
 $stmt->close();
+$conn->close();

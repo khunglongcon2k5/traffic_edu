@@ -1,10 +1,11 @@
 <?php
 session_start();
-header('Content-Type: application/json');
 require_once 'config.php';
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    echo json_encode(['message' => 'Yêu cầu không hợp lệ', 'errorField' => 'general']);
+    $_SESSION['message'] = 'Yêu cầu không hợp lệ';
+    header('Location: ../index.php?sidebar=auth');
     exit;
 }
 
@@ -13,7 +14,8 @@ if ($action === 'login') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     if (!$username || !$password) {
-        echo json_encode(['message' => 'Thiếu thông tin', 'errorField' => !$username ? 'loginUsername' : 'loginPassword']);
+        $_SESSION['message'] = 'Thiếu thông tin';
+        header('Location: ../index.php?sidebar=auth&tab=login');
         exit;
     }
 
@@ -24,9 +26,11 @@ if ($action === 'login') {
 
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user'] = ['id' => $user['id'], 'name' => $user['name'], 'email' => $user['email']];
-        echo json_encode(['message' => 'Đăng nhập thành công', 'redirect' => 'index.php']);
+        $_SESSION['message'] = 'Đăng nhập thành công';
+        header('Location: ../index.php');
     } else {
-        echo json_encode(['message' => 'Tên đăng nhập hoặc mật khẩu không đúng', 'errorField' => 'loginPassword']);
+        $_SESSION['message'] = 'Tên đăng nhập hoặc mật khẩu không đúng';
+        header('Location: ../index.php?sidebar=auth&tab=login');
     }
     $stmt->close();
 } elseif ($action === 'register') {
@@ -37,12 +41,14 @@ if ($action === 'login') {
     $confirmPassword = $_POST['confirmPassword'] ?? '';
 
     if (!$name || !$username || !$email || !$password || !$confirmPassword) {
-        echo json_encode(['message' => 'Thiếu thông tin', 'errorField' => !$name ? 'registerName' : (!$username ? 'registerUsername' : (!$email ? 'registerEmail' : (!$password ? 'registerPassword' : 'confirmPassword')))]);
+        $_SESSION['message'] = 'Thiếu thông tin';
+        header('Location: ../index.php?sidebar=auth&tab=register');
         exit;
     }
 
     if ($password !== $confirmPassword) {
-        echo json_encode(['message' => 'Mật khẩu không khớp', 'errorField' => 'confirmPassword']);
+        $_SESSION['message'] = 'Mật khẩu không khớp';
+        header('Location: ../index.php?sidebar=auth&tab=register');
         exit;
     }
 
@@ -50,7 +56,8 @@ if ($action === 'login') {
     $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     if ($stmt->get_result()->num_rows > 0) {
-        echo json_encode(['message' => 'Tên đăng nhập hoặc email đã tồn tại', 'errorField' => 'registerUsername']);
+        $_SESSION['message'] = 'Tên đăng nhập hoặc email đã tồn tại';
+        header('Location: ../index.php?sidebar=auth&tab=register');
         $stmt->close();
         exit;
     }
@@ -59,9 +66,16 @@ if ($action === 'login') {
     $stmt = $conn->prepare("INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssss", $name, $username, $email, $hashedPassword);
     if ($stmt->execute()) {
-        echo json_encode(['message' => 'Đăng ký thành công']);
+        $_SESSION['message'] = 'Đăng ký thành công';
+        header('Location: ../index.php?sidebar=auth&tab=login');
     } else {
-        echo json_encode(['message' => 'Đăng ký thất bại', 'errorField' => 'general']);
+        $_SESSION['message'] = 'Đăng ký thất bại';
+        header('Location: ../index.php?sidebar=auth&tab=register');
     }
     $stmt->close();
+} else {
+    $_SESSION['message'] = 'Hành động không hợp lệ';
+    header('Location: ../index.php?sidebar=auth');
 }
+
+$conn->close();
