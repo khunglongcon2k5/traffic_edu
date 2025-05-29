@@ -9,11 +9,6 @@ html {
     font-family: 'Quicksand', sans-serif;
 }
 
-/* ----- ROOT VARIABLES ----- */
-:root {
-    --background-light: #F9FAFB;
-}
-
 /* BASE STYLES */
 body {
     background: #F9FAFB;
@@ -46,7 +41,7 @@ body {
 
 /* NAVIGATION */
 header {
-    background: linear-gradient(269.85deg, #54151C 0%, #121212 54.89%);
+    background: #0a2540;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     width: 100%;
@@ -90,7 +85,7 @@ nav li:hover a {
 }
 
 nav li a.active {
-    background-color: #01f4a3e4;
+    background-color: #01c382e4;
     color: #fff;
 }
 
@@ -195,7 +190,7 @@ nav .btn-logout:hover {
 }
 
 .exam-btn {
-    background-color: #01f4a3e4;
+    background-color: #01c382e4;
     text-decoration: none;
     color: white;
     padding: 12px 10px;
@@ -278,7 +273,7 @@ nav .btn-logout:hover {
 /* FOOTER STYLES */
 footer {
     padding: 30px 0;
-    background: linear-gradient(269.85deg, #54151C 0%, #121212 54.89%);
+    background-color: #0a2540;
     margin-top: 50px;
     color: #fff;
 }
