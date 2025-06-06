@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 25, 2025 at 07:26 PM
+-- Generation Time: Jun 06, 2025 at 02:53 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `driving_test_db`
+-- Database: `traffic`
 --
 
 -- --------------------------------------------------------
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `answers` (
   `answer_id` int NOT NULL,
   `question_id` int NOT NULL,
-  `answer_text` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `explanation` text COLLATE utf8mb4_unicode_ci,
+  `answer_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `explanation` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `is_correct` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2288,8 +2288,8 @@ INSERT INTO `answers` (`answer_id`, `question_id`, `answer_text`, `explanation`,
 
 CREATE TABLE `exam_categories` (
   `category_id` int NOT NULL,
-  `category_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `category_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `time_limit` int NOT NULL DEFAULT '1140'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2400,7 +2400,72 @@ INSERT INTO `exam_results` (`id`, `user_id`, `set_id`, `total_questions`, `corre
 (77, 4, 21, 20, 20, 0, 0, 0),
 (78, 4, 40, 50, 0, 50, 1, 0),
 (79, 4, 22, 25, 0, 25, 1, 0),
-(80, 4, 1, 25, 16, 9, 1, 0);
+(80, 4, 1, 25, 16, 9, 1, 0),
+(81, 4, 8, 25, 0, 25, 1, 0),
+(82, 4, 8, 25, 0, 25, 1, 0),
+(83, 4, 8, 25, 0, 25, 1, 0),
+(84, 4, 8, 25, 0, 25, 1, 0),
+(85, 4, 8, 25, 0, 25, 1, 0),
+(86, 4, 8, 25, 0, 25, 1, 0),
+(87, 4, 8, 25, 0, 25, 1, 0),
+(88, 4, 8, 25, 0, 25, 1, 0),
+(89, 4, 8, 25, 0, 25, 1, 0),
+(90, 4, 8, 25, 0, 25, 1, 0),
+(91, 4, 8, 25, 0, 25, 1, 0),
+(92, 4, 8, 25, 0, 25, 1, 0),
+(93, 4, 8, 25, 0, 25, 1, 0),
+(94, 4, 8, 25, 0, 25, 1, 0),
+(95, 4, 8, 25, 0, 25, 1, 0),
+(96, 4, 8, 25, 0, 25, 1, 0),
+(97, 4, 1, 25, 0, 25, 1, 0),
+(98, 4, 1, 25, 0, 25, 1, 0),
+(99, 4, 1, 25, 0, 25, 1, 0),
+(100, 4, 1, 25, 0, 25, 1, 0),
+(101, 4, 1, 25, 0, 25, 1, 0),
+(102, 4, 1, 25, 0, 25, 1, 0),
+(103, 4, 1, 25, 0, 25, 1, 0),
+(104, 4, 2, 25, 0, 25, 1, 0),
+(105, 4, 2, 25, 0, 25, 1, 0),
+(106, 4, 2, 25, 0, 25, 1, 0),
+(107, 4, 2, 25, 0, 25, 1, 0),
+(108, 4, 2, 25, 0, 25, 1, 0),
+(109, 4, 2, 25, 0, 25, 1, 0),
+(110, 4, 2, 25, 0, 25, 1, 0),
+(113, 4, 2, 25, 0, 25, 1, 0),
+(115, 4, 2, 25, 0, 25, 1, 0),
+(116, 4, 2, 25, 0, 25, 1, 0),
+(117, 4, 2, 25, 0, 25, 1, 0),
+(118, 4, 2, 25, 0, 25, 1, 0),
+(119, 4, 2, 25, 0, 25, 1, 0),
+(120, 4, 2, 25, 0, 25, 1, 0),
+(121, 4, 2, 25, 0, 25, 1, 0),
+(122, 4, 2, 25, 0, 25, 1, 0),
+(123, 4, 2, 25, 0, 25, 1, 0),
+(124, 4, 2, 25, 0, 25, 1, 0),
+(125, 4, 2, 25, 0, 25, 1, 0),
+(126, 4, 2, 25, 0, 25, 1, 0),
+(127, 4, 2, 25, 0, 25, 1, 0),
+(128, 4, 2, 25, 0, 25, 1, 0),
+(129, 4, 2, 25, 1, 24, 1, 0),
+(130, 4, 2, 25, 1, 24, 1, 0),
+(131, 4, 2, 25, 1, 24, 1, 0),
+(132, 4, 2, 25, 1, 24, 1, 0),
+(133, 4, 2, 25, 1, 24, 1, 0),
+(134, 4, 2, 25, 1, 24, 1, 0),
+(135, 4, 2, 25, 1, 24, 1, 0),
+(136, 4, 2, 25, 1, 24, 1, 0),
+(137, 4, 2, 25, 1, 24, 1, 0),
+(138, 4, 2, 25, 2, 23, 1, 0),
+(139, 4, 1, 25, 0, 25, 1, 0),
+(140, 4, 1, 25, 1, 24, 1, 0),
+(141, 4, 22, 25, 6, 19, 1, 0),
+(142, 4, 1, 25, 0, 25, 1, 0),
+(143, 4, 1, 25, 0, 25, 1, 0),
+(144, 4, 1, 25, 1, 24, 1, 0),
+(145, 4, 1, 25, 1, 24, 1, 0),
+(146, 4, 1, 25, 1, 24, 1, 0),
+(147, 4, 1, 25, 0, 25, 1, 0),
+(148, 10, 40, 50, 0, 50, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -2411,7 +2476,7 @@ INSERT INTO `exam_results` (`id`, `user_id`, `set_id`, `total_questions`, `corre
 CREATE TABLE `exam_sets` (
   `set_id` int NOT NULL,
   `category_id` int DEFAULT NULL,
-  `set_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+  `set_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -2457,8 +2522,8 @@ INSERT INTO `exam_sets` (`set_id`, `category_id`, `set_name`) VALUES
 CREATE TABLE `questions` (
   `question_id` int NOT NULL,
   `set_id` int DEFAULT NULL,
-  `question_text` text COLLATE utf8mb4_unicode_ci,
-  `question_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `question_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `question_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_critical` tinyint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -3178,18 +3243,22 @@ INSERT INTO `questions` (`question_id`, `set_id`, `question_text`, `question_ima
 
 CREATE TABLE `users` (
   `id` int NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('user','admin') COLLATE utf8mb4_unicode_ci DEFAULT 'user',
+  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
-(4, 'Nguyễn Hùng', 'arigatouu123@gmail.com', '$2y$10$//feF2/iEb45yq0TM0llf.LYP.hMUpvK8MQER2e6AWbDjm00xIZ1q'),
-(7, 'Khủng Long Con', 'khunglongcon2k5@gmail.com', '$2y$10$jQjuHSsP1xd5AO18m4xVl.1055dTbCu6lhIqR4sHGV27Uuap6.R7G');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `username`) VALUES
+(4, 'Nguyễn Hùng', 'arigatouu123@gmail.com', '$2y$10$//feF2/iEb45yq0TM0llf.LYP.hMUpvK8MQER2e6AWbDjm00xIZ1q', 'user', ''),
+(10, 'nguyenvancc', 'nguyenvana1@gmail.com', '$2y$10$PdMLqr5BA5sT0YCFz/D0Q.6p5ggMsqNNlwLigYH5.oyZTpfRb6hJO', 'user', 'nva123'),
+(11, 'admin', 'admin@gmail.com', '$2y$10$.ni3V03dDMYJ.ZGZb5TGJ.as147JA.iJuHWwoIA42nlfZ.LWu.Eya', 'admin', 'admin'),
+(12, 'aaaaaaaaa', 'aaa@1333mgial.com', '$2y$10$lYv5vwNplZmZTMTDZ5kCfOCkg/7s.gdndUmk9evSOUEjX/8wKRXcG', 'user', 'a1');
 
 --
 -- Indexes for dumped tables
@@ -3257,7 +3326,7 @@ ALTER TABLE `exam_categories`
 -- AUTO_INCREMENT for table `exam_results`
 --
 ALTER TABLE `exam_results`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `exam_sets`
@@ -3275,7 +3344,7 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
