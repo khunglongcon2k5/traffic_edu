@@ -307,10 +307,10 @@ unset($_SESSION['message_time']);
             <div class="footer-section">
                 <h3 class="footer-title">Khóa Học</h3>
                 <ul class="footer-links">
-                    <a href="thi-bang-lai-xe-a1-online.php">
+                    <a href="./pages/thi-bang-lai-xe-a1-online.php">
                         <li>Bằng Lái Xe A1</li>
                     </a>
-                    <a href="thi-bang-lai-xe-a2-online.php">
+                    <a href="./pages/thi-bang-lai-xe-a2-online.php">
                         <li>Bằng Lái Xe A2</li>
                     </a>
                 </ul>

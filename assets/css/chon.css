@@ -178,3 +178,25 @@ h2 {
 .footer-bottom {
     text-align: center;
 }
+
+.user-info {
+    display: inline-block;
+    align-items: center;
+    color: white;
+    margin-left: 15px;
+    font-weight: 700;
+}
+
+.user-info i {
+    margin-right: 5px;
+}
+
+.btn-logout {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
