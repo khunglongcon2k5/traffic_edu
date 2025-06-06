@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'config.php';
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user']['id']) || !isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user']['name']) || !isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     $_SESSION['message'] = 'Yêu cầu không hợp lệ';
     header('Location: ../index.php');
     exit;

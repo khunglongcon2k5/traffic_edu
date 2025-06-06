@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -23,6 +26,11 @@
                     <li><a href="penalties.php">Xử phạt</a></li>
                     <li><a href="quiz.php">Kiểm tra</a></li>
                     <!-- Bỏ dấu gạch chân từ tags trên, sd thuộc tính "text-decoration: none;" áp dụng cho các thẻ <a> -->
+                    <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
+                            <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                            <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                        </div>
+                    <?php endif; ?>
                 </ul>
             </div>
         </nav>

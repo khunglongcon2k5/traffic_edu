@@ -1,6 +1,5 @@
 <?php
-
-$conn = new mysqli("localhost", "root", "", "traffic");
-
-if ($conn->connect_error)
-    die("Kết nối không thành công" . $conn->connect_error);
+$conn = new mysqli('localhost', 'root', '', 'traffic');
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}

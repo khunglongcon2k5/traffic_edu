@@ -221,7 +221,3 @@ body {
     text-decoration: none;
     transition: background-color 0.3s;
 }
-
-.retry-button:hover {
-    background-color: #2980b9;
-}
