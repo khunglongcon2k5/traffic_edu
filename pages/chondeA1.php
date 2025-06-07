@@ -17,7 +17,7 @@ $result_8 = $stmt_8->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>On thi lai xe</title>
+    <title>Ôn tập lý thuyết A1</title>
     <link rel="stylesheet" href="../assets/css/chonde.css" />
 </head>
 

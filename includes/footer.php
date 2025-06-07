@@ -13,7 +13,7 @@
                 <a href="https://maps.app.goo.gl/gqZhvDsBJWca9f9cA">
                     <li> Địa chỉ: 361 Tây Sơn, P.Quang Trung, TP Quy Nhơn, Bình Định</li>
                 </a>
-                <li>Điện thoại: 0256 3646373</li>
+                <li>Điện thoại: 0256.36.46.373</li>
                 <li>Email: trafficedu@qn.com.vn</li>
             </ul>
         </div>

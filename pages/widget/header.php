@@ -7,7 +7,7 @@
             <h4>Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)</h4>
         </div>
         <div class="hotline">
-            <h4> HOTLINE: 0815.62.63.72</h4>
+            <h4> HOTLINE: 0392.64.61.46</h4>
         </div>
 
 
@@ -19,9 +19,9 @@
         <a href='./ontapcaulietA1.php'>Ôn 20 câu Điểm Liệt</a>
         <a href="./ontapcaulietA2.php">Ôn 50 Câu Điểm Liệt</a>
         <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
-            <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
-            <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-        </div>
+                <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+            </div>
         <?php endif; ?>
     </div>
 </div>

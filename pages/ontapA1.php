@@ -60,14 +60,14 @@ if (isset($question_ranges[$set_id])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ôn Tập A1</title>
+    <title>Ôn tập A1</title>
     <link rel="stylesheet" href="../assets/css/middle.css" />
 </head>
 
 <body>
     <div>
         <?php include './widget/header.php'; ?>
-        <h2>BỘ ÔN TẬP THI THỬ BẰNG LÁI XE A1</h2>
+        <h2>BỘ ĐỀ ÔN TẬP THI THỬ BẰNG LÁI XE A1</h2>
         <div class="exam-container">
             <div class="question-list">
                 <?php

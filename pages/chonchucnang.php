@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ôn tập lý thuyết bằng lái xe máy A1 - A2</title>
     <link rel="stylesheet" href="../assets/css/chon.css" />
 </head>
 
