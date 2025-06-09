@@ -46,7 +46,7 @@ $result_8 = $stmt_8->get_result();
                     while ($row = $result_8->fetch_assoc()) {
                         if ($count <= 8) {
                             echo  "
-                                        <form action='ontapA1.php' method='get' style='display:inline-block; margin: 8px;'>
+                                        <form action='ontapA1.php' method='post' style='display:inline-block; margin: 8px;'>
                                             <input type='hidden' name='set_id' value='{$row['set_id']}'>
                                            <button type='submit'>Đề {$count}</button> 
                                         </form>
@@ -84,8 +84,6 @@ $result_8 = $stmt_8->get_result();
 
     </div>
     <?php include './widget/footer.php'; ?>
-
-
 </body>
 
 </html>

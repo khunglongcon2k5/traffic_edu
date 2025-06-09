@@ -25,7 +25,7 @@ session_start();
 
                 <button type="button" onclick="location.href='chondeA2.php'">Ôn tập đề thi A2</button>
                 <p>Hãy lựa chọn ôn tập đề thi phù hợp với mong muốn của bạn nhé !</p>
-                <button class="btn-blue" onclick="location.href='../index.html/index.php'">Trở Về</button>
+                <button class="btn-blue" onclick="location.href='../index.php'">Trở Về</button>
             </div>
         </div>
         <?php include './widget/footer.php'; ?>

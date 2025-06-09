@@ -1,6 +1,6 @@
 <?php
-include "../Widget/mysql_connect.php";
-isset($_GET['set_id']) ? $set_id = intval($_GET['set_id']) : $set_id = 1;
+include "../includes/config.php";
+isset($_POST['set_id']) ? $set_id = intval($_POST['set_id']) : $set_id = 1;
 // Kiểm tra kết nối
 
 

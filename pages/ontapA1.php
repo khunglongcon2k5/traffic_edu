@@ -1,6 +1,6 @@
 <?php
 include "../includes/config.php";
-isset($_GET['set_id']) ? $set_id = intval($_GET['set_id']) : $set_id = 1;
+isset($_POST['set_id']) ? $set_id = intval($_POST['set_id']) : $set_id = 1;
 // Kiểm tra kết nối
 
 $limit = 25;
