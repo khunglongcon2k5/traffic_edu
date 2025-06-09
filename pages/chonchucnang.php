@@ -1,5 +1,11 @@
 <?php
 session_start();
+// Kiểm tra nếu người dùng chưa đăng nhập
+if (!isset($_SESSION['user']) || !isset($_SESSION['user']['id'])) {
+    $_SESSION['message'] = 'Vui lòng đăng nhập để truy cập trang này!';
+    header('Location: ../index.php?sidebar=auth');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

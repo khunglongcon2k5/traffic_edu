@@ -220,11 +220,11 @@ session_start();
             <div class="noidung">
                 <b>🛵 Thông tin cần thiết về bằng lái xe A1.</b>
                 <hr>
-                <img src="../assets/img/image17.png" />
+                <img src="../assets/img/image17.png" style="margin-left: 2px;" />
                 <a href="A1_Phan1.php">A1-Phần 1: Luật trật tự an toàn giao thông đường bộ </a><br><br>
-                <img src="../assets/img/image18.png" />
+                <img src="../assets/img/image18.png" style="margin-left: 2px;" />
                 <a href="signs.php">A1-Phần 2: Tổng hợp biển báo giao thông </a><br><br>
-                <img src="../assets/img/image19.png" />
+                <img src="../assets/img/image19.png" style="margin-left: 2px;" />
                 <a href="chonchucnang.php">A1-Phần 3: Bộ câu hỏi và phần mềm ôn luyện lý thuyết
                 </a><br>
 

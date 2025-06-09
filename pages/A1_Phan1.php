@@ -24,9 +24,9 @@ session_start();
             <li><a href="penalties.php"> Xử phạt </a></li>
             <li><a href="quiz.php"> Kiểm tra</a> </li>
             <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
-                    <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
-                    <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-                </div>
+                <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+            </div>
             <?php endif; ?>
         </ul>
     </nav>
@@ -57,18 +57,17 @@ session_start();
                 <div>
                     <br>
                     <p><b>Phần I:</b> Luật trật tự, an toàn giao thông đường bộ </p> <br>
-                    <iframe src="https://drive.google.com/file/d/1XidKDQgZBrMY1ScRWyVQh9NI0LrVtXGj/preview" width="640"
-                        height="480" allow="autoplay"></iframe>
+                    <iframe src="../assets/file/Luật Trật tự, an toàn giao thông đường bộ.pdf" width="640" height="480"
+                        allow="autoplay"></iframe>
                     <p><b><br>Phần II:</b> Quy chuẩn Kỹ thuật Quốc Gia về Báo hiệu Đường bộ</p><br>
-                    <iframe src="https://drive.google.com/file/d/1zY594_CNj-Glem-3tcSDNpOQgz7kg9R9/preview" width="640"
-                        height="480" allow="autoplay"></iframe>
+                    <iframe src="../assets/file/51-bgtvt-QCKTQG.pdf" width="640" height="480" allow="autoplay"></iframe>
                     <p style="text-align: center;">******</p>
                 </div>
                 <div>
                     <strong><br>Đạo đức người lái xe và văn hóa giao thông </strong><br><br>
                     <img src="../assets/img/image22.jpg" style="width: 500px; height: 300px; margin-left: 110px;" />
-                    <iframe src="https://drive.google.com/file/d/1rOuG8EPaNDmnU8_CecyjTC-fMhxZbgiG/preview" width="640"
-                        height="480" allow="autoplay"></iframe>
+                    <iframe src="../assets/file/Giao_trinh_DDNLX___VHGT.pdf" width="640" height="480"
+                        allow="autoplay"></iframe>
                     <p style="text-align: center;">******</p>
                 </div>
 

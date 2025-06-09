@@ -46,8 +46,10 @@ session_start();
         </div>
         <div>
             <i>📷 Hình ảnh minh họa: </i>
-            <div><br><img src="https://daylaixeoto.edu.vn/images/hoc-lai-xe-oto/phan-mem-thi-bang-lai-xe-a1-2.jpg"
-                    style="margin-left: 100px; width: 500px; height: 350px;" /></div>
+            <div>
+                <br><img src="https://daylaixeoto.edu.vn/images/hoc-lai-xe-oto/phan-mem-thi-bang-lai-xe-a1-2.jpg"
+                    style="margin-left: 100px; width: 500px; height: 350px;" />
+            </div>
         </div>
         <div>
             <h5>📝Bước 2: Thông tin đề thi A2: </h5><br>
@@ -77,13 +79,13 @@ session_start();
                             <td><b>1 câu </b>- sai là bị loại trực tiếp </td>
                         </tr>
                     </tbody>
-
                 </table>
             </div>
         </div>
         <div>
             <i>📷 Hình minh họa giao diện bài thi: </i>
-            <div><br><img src="../assets/img/image5.jpg" style="margin-left: 100px; width: 500px; height: 350px;" />
+            <div>
+                <br><img src="../assets/img/image5.jpg" style="margin-left: 100px; width: 500px; height: 350px;" />
             </div>
         </div>
         <div>
@@ -111,11 +113,12 @@ session_start();
         </ul>
         <div>
             <i>📷 Minh họa màn hình kiểm tra bài thi:</i>
-            <div><br><img
-                    src="https://trungtamgdnnlaixesaigon.edu.vn/wp-content/uploads/2022/05/thi-ly-thuyet-bang-lai-xe-a2-1.jpg"
-                    style="margin-left: 100px; width: 500px; height: 350px;" /></div>
+            <div>
+                <br>
+                <img src="https://trungtamgdnnlaixesaigon.edu.vn/wp-content/uploads/2022/05/thi-ly-thuyet-bang-lai-xe-a2-1.jpg"
+                    style="margin-left: 100px; width: 500px; height: 350px;" />
+            </div>
         </div>
-
 
         <br>
         <h5>✅ Bước 5: Nộp bài và xem kết quả: </h5>
@@ -135,8 +138,6 @@ session_start();
                 </ul>
             </div>
         </div>
-
-
 
         <i>📌 Để biết thêm chi tiết cách thi lý thuyết trên máy tính, có thể tham khảo video <a
                 href="https://www.youtube.com/watch?v=DtUJ9bS2OBY">tại đây</a>.</i>

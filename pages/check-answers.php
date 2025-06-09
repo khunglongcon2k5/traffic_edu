@@ -2,8 +2,8 @@
 session_start();
 require_once '../includes/config.php';
 
-if (!isset($_SESSION['user']['id'])) { // thay vì user_id
-    header("Location: ../index.php?sidebar=auth&tab=login");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
     exit();
 }
 
@@ -17,7 +17,7 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
     exit();
 }
 
-$user_id = $_SESSION['user']['id'];
+$user_id = $_SESSION['user_id'];
 $set_id = isset($_POST['set_id']) ? (int)($_POST['set_id']) : 0;
 
 function getAnswersForQuestion($conn, $question_id)
@@ -35,19 +35,14 @@ function getAnswersForQuestion($conn, $question_id)
     return $answersForQuestion;
 }
 
-// Get exam info
-$stmt = $conn->prepare(
-    "SELECT es.set_name, ec.category_name, ec.time_limit 
-     FROM exam_sets es 
-     JOIN exam_categories ec ON es.category_id = ec.category_id
-     WHERE es.set_id = ?"
-);
+// Get exam info 
+$stmt = $conn->prepare("SELECT set_name FROM exam_sets WHERE set_id = ?");
 $stmt->bind_param("i", $set_id);
 $stmt->execute();
 $exam_info = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-// Get a list of questions
+// Get questions based on set_id
 $questions = [];
 if ($set_id >= 1 && $set_id <= 8) {
     list($start_id, $end_id) = [($set_id - 1) * 25 + 1, $set_id * 25];
@@ -102,41 +97,39 @@ if ($set_id >= 1 && $set_id <= 8) {
     $questions = [];
 }
 
-// Handle scoring
+// Calculate results
 $total_questions = count($questions);
 $correct_count = 0;
-$wrong_count = 0;
 $has_critical_error = false;
 
 foreach ($questions as $questions_id => $question) {
     $user_answer_id = isset($_POST["question_{$questions_id}"]) ? (int)$_POST["question_{$questions_id}"] : 0;
     $answers = getAnswersForQuestion($conn, $questions_id);
-    $is_correct = false;
+    $correct_answer_id = null;
 
-    // Tìm câu trả lời đúng
     foreach ($answers as $answer) {
-        if ($answer['is_correct'] == 1 && $answer['answer_id'] == $user_answer_id) {
-            $is_correct = true;
+        if ($answer['is_correct']) {
+            $correct_answer_id = $answer['answer_id'];
             break;
         }
     }
 
-    // Cập nhật số câu đúng/sai
+    $is_correct = ($user_answer_id == $correct_answer_id);
     if ($is_correct) {
         $correct_count++;
-    } else {
-        $wrong_count++;
-        if ($question['is_critical']) {
-            $has_critical_error = true;
-        }
+    } elseif ($question['is_critical']) {
+        $has_critical_error = true;
     }
 }
 
+$wrong_count = $total_questions - $correct_count;
 
-// Save overall result to exam_results
+// Determine pass/fail
 $pass = (!$has_critical_error && $correct_count >= 21);
 $has_critical_error = $has_critical_error ? 1 : 0;
 $pass_value = $pass ? 1 : 0;
+
+// Save result to database
 $stmt = $conn->prepare("INSERT INTO exam_results (user_id, set_id, total_questions, correct_count, wrong_count, has_critical_error, passed) VALUES (?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("iiiiiii", $user_id, $set_id, $total_questions, $correct_count, $wrong_count, $has_critical_error, $pass_value);
 $stmt->execute();
@@ -155,15 +148,12 @@ $stmt->close();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap">
     <!-- Favicon-->
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <a href="#">
+            <a href="/index.php">
                 <img src="../assets/img/logo.svg" width="150" height="100"
                     alt="Luyện Thi Bằng Lái Xe Máy A1 - A2 (2025)" />
             </a>
@@ -208,12 +198,10 @@ $stmt->close();
                 $user_answer_id = isset($_POST["question_{$questions_id}"]) ? (int)$_POST["question_{$questions_id}"] : 0;
                 $answers = getAnswersForQuestion($conn, $questions_id);
                 $is_correct = false;
-                $selected_answer = '';
                 $explanation = '';
 
                 foreach ($answers as $answer) {
                     if ($answer['answer_id'] == $user_answer_id) {
-                        $selected_answer = $answer['answer_text'];
                         $is_correct = $answer['is_correct'];
                     }
                     if ($answer['is_correct']) {
@@ -228,11 +216,13 @@ $stmt->close();
                 echo "</div>";
                 echo "<div class='question-content'>";
                 echo "<div class='question-text'>" . htmlspecialchars($question['question_text']) . "</div>";
-                if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg') {
+
+                if (!empty($question['question_image']) && $question['question_image'] !== '../assets/img/0.jpg') {
                     echo "<div style='text-align: center'>";
                     echo "<img src='" . htmlspecialchars($question['question_image']) . "' alt='Câu hỏi bài thi' class='question_image' style='width: 400px;'>";
                     echo "</div>";
                 }
+
                 echo "<div class='answer-options'>";
                 foreach ($answers as $answer) {
                     echo "<div class='answer-option " .

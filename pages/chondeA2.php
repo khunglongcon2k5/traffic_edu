@@ -26,7 +26,6 @@ $result_18 = $stmt_18->get_result();
     <div class="main-content">
         <?php include './widget/header.php'; ?>
 
-
         <h2>BỘ ÔN TẬP ĐỀ THI THỬ BẰNG LÁI XE A2</h2>
         <div class="button-group">
             <h4>Chọn đề ôn tập:</h4>
@@ -39,14 +38,13 @@ $result_18 = $stmt_18->get_result();
             </div>
 
             <div class="exam-grid">
-
                 <?php
                 $count = 1;
                 if ($result_18->num_rows > 0) {
                     while ($row = $result_18->fetch_assoc()) {
                         if ($count <= 18) {
                             echo  "
-                                        <form action='ontapA2.php' method='get' style='display:inline-block; margin: 8px;'>
+                                        <form action='ontapA2.php' method='post' style='display:inline-block; margin: 8px;'>
                                             <input type='hidden' name='set_id' value='{$row['set_id']}'>
                                            <button type='submit'>Đề {$count}</button> 
                                         </form>

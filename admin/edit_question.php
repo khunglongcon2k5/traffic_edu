@@ -52,7 +52,8 @@ $stmt->close();
 <body>
     <div class="container main-content">
         <div class="form-container">
-            <h2 style="margin-bottom: 10px;">Chỉnh sửa câu hỏi</h2>
+            <h2 style="margin-bottom: 10px;"><i class="fa-solid fa-wrench"
+                    style="margin-right: 13px; cursor: pointer;"></i>Chỉnh sửa câu hỏi</h2>
             <form method="POST" action="update_question.php" enctype="multipart/form-data">
                 <input type="hidden" name="question_id" value="<?php echo $question['question_id']; ?>">
 
@@ -76,13 +77,14 @@ $stmt->close();
                     <label for="question_image">Thêm hình ảnh cần chỉnh sửa (nếu có):</label>
                     <input type="file" id="question_image" name="question_image" accept="image/*">
                     <?php if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg'): ?>
-                        <div id="current-image">
-                            <p style="font-weight: 600; margin-top: 10px;">Hình ảnh hiện tại: </p>
-                            <div class="image-preview-container">
-                                <img src="<?php echo htmlspecialchars($question['question_image']); ?>" width="350">
-                                <button type="button" class="remove-preview-btn" onclick="removeCurrentImage()">×</button>
-                            </div>
+                    <div id="current-image">
+                        <p style="font-weight: 600; margin-top: 10px;">Hình ảnh hiện tại: </p>
+                        <div class="image-preview-container">
+                            <img src="<?php echo htmlspecialchars($question['question_image']); ?>" width="350">
+                            <button type="button" class="remove-preview-btn" onclick="removeCurrentImage()"><i
+                                    class="fa-solid fa-trash"></i></button>
                         </div>
+                    </div>
                     <?php endif; ?>
                     <input type="hidden" name="existing_image"
                         value="<?php echo htmlspecialchars($question['question_image']); ?>">
@@ -90,7 +92,7 @@ $stmt->close();
                 </div>
 
                 <div class="form-group">
-                    <label for="is_critical">Câu hỏi điểm liệt:</label>
+                    <label for="is_critical" style="color: red;">Câu hỏi điểm liệt:</label>
                     <input type="checkbox" id="is_critical" name="is_critical" value="1"
                         <?php echo $question['is_critical'] ? 'checked' : ''; ?>>
                 </div>
@@ -99,20 +101,20 @@ $stmt->close();
                     <label>Đáp án:</label>
                     <div id="answers">
                         <?php foreach ($answers as $index => $answer): ?>
-                            <div class="answer-group">
-                                <input type="text" name="answer_text[]"
-                                    value="<?php echo htmlspecialchars($answer['answer_text']); ?>" required>
-                                <input type="checkbox" name="is_correct[]" value="<?php echo $index; ?>"
-                                    <?php echo $answer['is_correct'] ? 'checked' : ''; ?>> Đúng
-                                <textarea
-                                    name="explanation[]"><?php echo htmlspecialchars($answer['explanation']); ?></textarea>
-                                <button type="button" class="remove-answer" onclick="removeAnswer(this)">Xóa</button>
-                            </div>
+                        <div class="answer-group">
+                            <input type="text" name="answer_text[]"
+                                value="<?php echo htmlspecialchars($answer['answer_text']); ?>" required>
+                            <input type="checkbox" name="is_correct[]" value="<?php echo $index; ?>"
+                                <?php echo $answer['is_correct'] ? 'checked' : ''; ?>> Đúng
+                            <textarea
+                                name="explanation[]"><?php echo htmlspecialchars($answer['explanation']); ?></textarea>
+                            <button type="button" class="remove-answer" onclick="removeAnswer(this)"><i
+                                    class="fa-solid fa-trash"></i></button>
+                        </div>
                         <?php endforeach; ?>
                     </div>
                     <button type="button" id="add_answer">Thêm đáp án</button>
                 </div>
-
 
                 <button type="submit" class="submit-btn">Cập nhật câu hỏi</button>
                 <a href="dashboard.php" class="logout-btn">Thoát</a>

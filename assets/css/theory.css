@@ -92,6 +92,8 @@ body {
     background-size: cover;
     padding: 50px;
     border-radius: 8px;
+    width: 300px;
+    padding-left: 25px;
 }
 
 .tag-b,
@@ -269,6 +271,8 @@ footer {
     cursor: pointer;
     transition: background 0.3s ease, transform 0.1s ease;
     margin-top: 2px;
+    margin-left: 80px;
+    ;
 }
 
 /* Khi rê chuột vào */
