@@ -200,3 +200,7 @@ h2 {
     border-radius: 4px;
     text-decoration: none;
 }
+
+.navbar .btn-logout:hover {
+    background: rgb(222, 49, 49);
+}

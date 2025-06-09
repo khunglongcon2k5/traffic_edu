@@ -175,11 +175,11 @@ img {
 }
 
 .user-info {
-  display: inline-flex;
+  display: inline-block;
   align-items: center;
   color: white;
   margin-left: 15px;
-  vertical-align: middle;
+  font-weight: 700;
 }
 
 .user-info i {
@@ -189,9 +189,13 @@ img {
 .btn-logout {
   margin-left: 10px;
   padding: 5px 10px;
-  background-color: #1abc9c;
+  background: red;
   color: white;
   border: none;
   border-radius: 4px;
   text-decoration: none;
+}
+
+.navbar .btn-logout:hover {
+  background: rgb(222, 49, 49);
 }
