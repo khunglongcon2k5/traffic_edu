@@ -9,6 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lý thuyết toàn diện </title>
     <link rel="stylesheet" href="../assets/css/theory.css">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
 </head>
 
 <body>
@@ -24,9 +25,9 @@ session_start();
             <li><a href="penalties.php"> Xử phạt </a></li>
             <li><a href="quiz.php"> Kiểm tra</a> </li>
             <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
-                <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
-                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-            </div>
+                    <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                    <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                </div>
             <?php endif; ?>
         </ul>
     </nav>

@@ -2,8 +2,8 @@
 session_start();
 require_once '../includes/config.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['user']) || !isset($_SESSION['user']['id'])) {
+    header("Location: ../index.php?sidebar=auth&tab=register");
     exit();
 }
 
@@ -17,7 +17,7 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
     exit();
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user']['id'];
 $set_id = isset($_POST['set_id']) ? (int)($_POST['set_id']) : 0;
 
 function getAnswersForQuestion($conn, $question_id)

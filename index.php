@@ -65,18 +65,19 @@ unset($_SESSION['message_time']);
     <!-- Thêm các meta tag bảo mật -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
-    <title>TrafficEdu</title>
+    <title>Thi Lý Thuyết Bằng Lái Xe Máy</title>
     <!-- Tải các tài nguyên bên ngoài (CSS và biểu tượng) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="./assets/img/logo.svg">
 </head>
 
 <body>
     <!-- Phần đầu trang với thanh điều hướng -->
     <header>
         <div class="navbar">
-            <div class="logo">TrafficEdu</div>
+            <div class="logo">Traffic Education</div>
             <ul class="nav-links">
                 <li><a href="#" class="active">Trang chủ</a></li>
                 <li><a href="./pages/home.php">Lý thuyết</a></li>

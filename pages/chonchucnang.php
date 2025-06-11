@@ -15,6 +15,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['user']['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ôn tập lý thuyết bằng lái xe máy A1 - A2</title>
     <link rel="stylesheet" href="../assets/css/chon.css" />
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
 </head>
 
 <body>

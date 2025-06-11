@@ -19,6 +19,7 @@ $result_18 = $stmt_18->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ôn tập lý thuyết A2</title>
     <link rel="stylesheet" href="../assets/css/chonde.css" />
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
 </head>
 
 <body>

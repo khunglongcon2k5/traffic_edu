@@ -43,6 +43,7 @@ $stmt->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ôn tập câu liệt A2</title>
     <link rel="stylesheet" href="../assets/css/middle.css" />
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="../assets/img/logo.svg">
 </head>
 
 <body>
