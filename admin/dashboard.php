@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
-require_once 'includes/auth_check.php';
+require_once 'auth_check.php';
 ?>
 
 <!DOCTYPE html>
@@ -34,11 +34,11 @@ require_once 'includes/auth_check.php';
                     <li><a href="#" class="tab-btn" data-tab="add-question-tab"><i class="fa-solid fa-plus"></i><span
                                 style="margin-left: 10px;">Thêm câu hỏi mới</span></a></li>
                     <li class="user-information">
-                        <?php if (isset($_SESSION['name'])): ?>
+                        <?php if (isset($_SESSION['user'])): ?>
                             <div class="user-info">
                                 <div class="user-name-container">
                                     <i class="fa-solid fa-user-tie"></i>
-                                    <span class="username"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
+                                    <span class="username"><?php echo htmlspecialchars($_SESSION['user']['name']); ?></span>
                                 </div>
                                 <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
                             </div>
