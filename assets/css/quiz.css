@@ -186,6 +186,18 @@ nav .btn-logout:hover {
     border-color: var(--primary);
 }
 
+.question-btn.answered {
+    background-color: #10b981 !important;
+    color: white !important;
+    border-color: #10b981 !important;
+}
+
+.question-btn.active.answered {
+    background-color: #3b82f6 !important;
+    color: white !important;
+    border-color: #3b82f6 !important;
+}
+
 /* QUESTION CONTENT */
 .question-content {
     padding: 25px;

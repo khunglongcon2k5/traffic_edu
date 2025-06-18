@@ -1,5 +1,6 @@
 <?php
 include "../includes/config.php";
+session_start();
 isset($_POST['set_id']) ? $set_id = intval($_POST['set_id']) : $set_id = 1;
 // Kiểm tra kết nối
 

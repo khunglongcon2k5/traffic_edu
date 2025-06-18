@@ -185,7 +185,17 @@ $stmt->close();
             </div>
 
             <div class="result-status <?php echo $pass ? 'status-pass' : 'status-fail'; ?>">
-                <?php echo $pass ? 'ĐẠT - Chúc mừng bạn đã vượt qua bài thi!' : 'KHÔNG ĐẠT - Bạn bị sai câu điểm liệt - Hãy thử lại vào lần sau!'; ?>
+                <?php
+                if ($pass) {
+                    echo 'ĐẠT - Chúc mừng bạn đã vượt qua bài thi!';
+                } else {
+                    if ($has_critical_error) {
+                        echo 'CHƯA ĐẠT - Bạn bị sai câu điểm liệt';
+                    } else {
+                        echo 'CHƯA ĐẠT - Bạn chưa đạt đủ 21/25 câu đúng';
+                    }
+                }
+                ?>
             </div>
         </div>
 
