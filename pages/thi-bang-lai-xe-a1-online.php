@@ -2,7 +2,6 @@
 session_start();
 require_once '../includes/config.php';
 
-// Kiểm tra nếu người dùng chưa đăng nhập
 if (!isset($_SESSION['user']) || !isset($_SESSION['user']['id'])) {
     $_SESSION['message'] = 'Vui lòng đăng nhập để truy cập trang này!';
     header('Location: ../index.php?sidebar=auth');
@@ -11,21 +10,12 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['user']['id'])) {
 
 $current_page = basename($_SERVER['PHP_SELF']);
 
-// Lấy danh sách đề thi
 $category_id = 1;
-$category_critical_id = 2;
-$limit_8 = 8;
+$stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
+$stmt->bind_param("i", $category_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-$stmt_8   = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ? ORDER BY set_id LIMIT ?");
-$stmt_8->bind_param("ii", $category_id, $limit_8);
-$stmt_8->execute();
-$result_8 = $stmt_8->get_result();
-
-// Lấy đề điểm liệt A1
-$stmt_bo_de_diem_liet = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
-$stmt_bo_de_diem_liet->bind_param("i", $category_critical_id);
-$stmt_bo_de_diem_liet->execute();
-$result_bo_de_diem_liet = $stmt_bo_de_diem_liet->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -79,9 +69,6 @@ $result_bo_de_diem_liet = $stmt_bo_de_diem_liet->get_result();
                 Vào học thử là mê – học kỹ là đậu! Còn chờ gì nữa, bắt đầu ôn tập ngay hôm nay để tự tin bước vào kỳ thi
                 A1 nhé!
             </p>
-
-            <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; color: #1340ef;">
-            </div>
         </aside>
 
         <main class="content">
@@ -152,21 +139,16 @@ $result_bo_de_diem_liet = $stmt_bo_de_diem_liet->get_result();
             <div>
                 <h3 style="margin-bottom: 15px;">Chọn đề thi:</h3>
                 <div>
-                    <?php
-                    if ($result_bo_de_diem_liet->num_rows > 0) {
-                        $row = $result_bo_de_diem_liet->fetch_assoc();
-                        echo '<a href="thi-thu-20-cau-diem-liet-a1.php?set_id='
-                            . $row['set_id']
-                            . '" class="exam-btn">20 Câu hỏi điểm liệt </a>';
-                    }
-                    ?>
+                    <a href="thi-thu-20-cau-diem-liet-a1.php" class="exam-btn"
+                        style="display: inline-block; margin-bottom: 20px; width: auto;">20 Câu
+                        Hỏi Điểm Liệt</a>
                 </div>
 
                 <div class="exam-grid">
                     <?php
                     $count = 1;
-                    if ($result_8->num_rows > 0) {
-                        while ($row = $result_8->fetch_assoc()) {
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
                             if ($count <= 8) {
                                 echo '<a href="thi-thu-bang-lai-xe-may-a1.php?set_id=' . $row['set_id'] . '" class="exam-btn">Đề ' . $count . '</a>';
                                 $count++;

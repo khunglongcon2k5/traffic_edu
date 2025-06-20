@@ -2,13 +2,16 @@
 session_start();
 require_once '../includes/config.php';
 
+if (!isset($_SESSION['user']) || !isset($_SESSION['user']['id'])) {
+    $_SESSION['message'] = 'Vui lòng đăng nhập để truy cập trang này!';
+    header('Location: ../index.php?sidebar=auth');
+    exit;
+}
+
 $current_page = basename($_SERVER['PHP_SELF']);
 
 $category_id = 2;
-$stmt = $conn->prepare(
-    "SELECT * FROM exam_sets
-     WHERE category_id = ?"
-);
+$stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
 $stmt->bind_param("i", $category_id);
 $stmt->execute();
 $result = $stmt->get_result();
