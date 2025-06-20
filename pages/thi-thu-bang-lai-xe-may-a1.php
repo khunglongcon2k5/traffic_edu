@@ -1,7 +1,8 @@
 <?php
 session_start();
 require_once '../includes/config.php';
-$current_page = basename($_SERVER['PHP_SELF']); // Lấy tên file hiện tại
+
+$current_page = basename($_SERVER['PHP_SELF']);
 
 // Lấy câu hỏi theo bộ đề
 function getQuestionsBySet($conn, $set_id, $limit = 25)
@@ -63,40 +64,15 @@ function getAnswersForQuestion($conn, $question_id)
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $answersForQuestion = [];
+    $answers = [];
     while ($row = $result->fetch_assoc()) {
-        $answersForQuestion[] = $row;
+        $answers[] = $row;
     }
     $stmt->close();
-    return $answersForQuestion;
+    return $answers;
 }
 
-// Lấy danh sách đề thi
-function getExamSets($conn, $category_id = null)
-{
-    if ($category_id === null)
-        return [];
-
-    $stmt = $conn->prepare("SELECT * FROM exam_sets WHERE category_id = ?");
-    $stmt->bind_param("i", $category_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $exam_sets = [];
-    while ($row = $result->fetch_assoc()) {
-        $exam_sets[] = $row;
-    }
-    $stmt->close();
-    return $exam_sets;
-}
-
-// Lấy set_id từ URL mặc định là 1
-$set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 1;
-
-// Kiểm tra set_id hợp lệ (1-8)
-if ($set_id < 1 || $set_id > 8) {
-    $set_id = 1; // Mặc định là đề 1 nếu không hợp lệ
-}
+$set_id = (isset($_GET['set_id']) && $_GET['set_id'] >= 1 && $_GET['set_id'] <= 8) ? (int)$_GET['set_id'] : 1;
 
 // Lấy 25 câu hỏi cho đề thi
 $questions = getQuestionsBySet($conn, $set_id, 25);
@@ -193,7 +169,7 @@ $stmt->close();
                         }
 
                         // Display Answers
-                        echo "<div class='options'>";
+                        echo "<label class='options'>";
                         foreach ($answers as $answer_index => $answer) {
                             $option_number = $answer_index + 1;
                             echo "<label class='option'>";
@@ -201,7 +177,7 @@ $stmt->close();
                             echo "<label for='q{$question_number}_option{$option_number}'>{$option_number}- " . htmlspecialchars($answer['answer_text']) . "</label>";
                             echo "</label>";
                         }
-                        echo "</div>";
+                        echo "</label>";
 
                         // điều hướng
                         echo "<div class='navigation-buttons'>";
@@ -225,7 +201,6 @@ $stmt->close();
                             echo "</button>";
                         }
                         echo "</div>"; // đóng navigation-buttons
-
                         echo "</div>"; // đóng question-panel
                     }
                 } else {
