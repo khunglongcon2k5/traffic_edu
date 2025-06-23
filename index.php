@@ -1,10 +1,5 @@
 <?php
-// Bắt đầu phiên làm việc để quản lý dữ liệu người dùng
 session_start();
-
-// Thiết lập các tiêu đề bảo mật để ngăn chặn sniffing nội dung và clickjacking
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
 
 // Kiểm tra thời gian hết hạn phiên (30 phút)
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 1800)) {
