@@ -4,7 +4,7 @@ require_once '../includes/config.php';
 
 $current_page = basename($_SERVER['PHP_SELF']);
 
-function getQuestionsBySet($conn, $set_id, $limit = 20)
+function getQuestionsBySet($conn, $set_id)
 {
     $critical_questions = [
         21 => [3, 5, 12, 28, 29, 30, 33, 53, 54, 79, 104, 108, 129, 135, 152, 153, 154, 177, 179, 701]
@@ -14,11 +14,11 @@ function getQuestionsBySet($conn, $set_id, $limit = 20)
         return [];
 
     $ids = $critical_questions[$set_id];
-    $placeholders = str_repeat('?, ', count($ids) - 1) . '?';
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
 
-    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders) LIMIT ?");
-    $types = str_repeat('i', count($ids)) . 'i';
-    $params = array_merge($ids, [$limit]);
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders)");
+    $types = str_repeat('i', count($ids));
+    $params = array_merge($ids);
     $stmt->bind_param($types, ...$params);
     $stmt->execute();
     $result = $stmt->get_result();
