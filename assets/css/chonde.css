@@ -54,13 +54,11 @@ body {
     background-color: #135f7d;
     height: 50px;
     padding-top: 30px;
-    /* #245586 đẩy nội dung xuống 15px */
     text-align: center;
 
 }
 
 .navbar a {
-
     color: white;
     font-size: 18px;
     text-decoration: none;
@@ -118,7 +116,6 @@ button {
 
 .btn-blue {
     background-color: #3b82f6;
-    /* Green */
     border: none;
     color: white;
     padding: 12px 28px;
@@ -181,7 +178,6 @@ button {
 
 .contact {
     align-items: center;
-
     padding: 10px 20px;
 }
 
@@ -198,7 +194,6 @@ button {
 }
 
 .follow a {
-
     display: flex;
     color: white;
     text-decoration: none;

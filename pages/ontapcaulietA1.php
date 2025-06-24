@@ -17,9 +17,6 @@ session_start();
         <?php include './widget/header.php'; ?>
         <h2>BỘ ĐỀ ÔN TẬP THI THỬ BẰNG LÁI XE A1 </h2>
         <div class="exam-container">
-            <!-- Cột bên trái -->
-
-            <!-- Cột bên phải -->
             <?php
             include "../includes/config.php";
             $critical_questions = [
@@ -27,19 +24,19 @@ session_start();
             ];
             $set_id = 21;
             $limit = 20;
+
             if (!isset($critical_questions[$set_id]))
                 return [];
 
             $ids = implode(',', $critical_questions[$set_id]);
 
             $sql = "SELECT * 
-        FROM questions q 
-        JOIN answers a ON q.question_id = a.question_id 
-        WHERE q.question_id IN ($ids) 
-        AND a.is_correct = 1 
-        LIMIT $limit";
+                    FROM questions q 
+                    JOIN answers a ON q.question_id = a.question_id 
+                    WHERE q.question_id IN ($ids) 
+                    AND a.is_correct = 1 
+                    LIMIT $limit";
             $result = mysqli_query($conn, $sql);
-
             $questions = [];
             while ($row = mysqli_fetch_assoc($result)) {
                 $row['is_critical'] = 1;
@@ -61,16 +58,15 @@ session_start();
                 echo '</div>';
                 $count++;
             }
-
             ?>
         </div>
+
         <div class="finish-btn">
             <button onclick="location.href='chondeA1.php'">Kết thúc</button>
         </div>
+
         <?php include './widget/footer.php'; ?>
-
     </div>
-
 </body>
 
 </html>

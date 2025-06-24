@@ -25,9 +25,9 @@ session_start();
             <li><a href="penalties.php"> Xử phạt </a> </li>
             <li><a href="quiz.php"> Kiểm tra </a></li>
             <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
-                    <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
-                    <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-                </div>
+                <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+            </div>
             <?php endif; ?>
         </ul>
     </nav>
@@ -36,7 +36,6 @@ session_start();
             <div class="toc-header">
                 <span class="toc-icon">&#9776;</span>
                 <span class="toc-title">Mục lục</span>
-                <!-- <span class="toc-arrow">&#x25BC;</span> -->
             </div>
             <ol class="toc-list">
                 <li><a href="rules.php">Luật giao thông đường bộ </a></li>
@@ -123,7 +122,6 @@ session_start();
                             <p> + Đường hai chiều, đường một chiều có một làn xe cơ giới: 50km/h.</p>
                             <p>- Tốc độ tối đa của xe ô tô <b>ngoài khu khực đông dân cư </b>(trừ đường cao tốc):</p>
                             <table border="1" style="border-collapse: collapse; width: 100%; text-align: center;">
-                                <!-- border-collapse: collapse; chỉ còn khung đường viền bên ngoài  -->
                                 <thead>
                                     <tr>
                                         <th rowspan="2">Loại xe</th>

@@ -28,7 +28,6 @@ body {
 
 button {
     background-color: #4CAF50;
-    /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -43,7 +42,6 @@ button {
 
 .btn-blue {
     background-color: #3b82f6;
-    /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -96,13 +94,11 @@ button {
     background-color: #135f7d;
     height: 50px;
     padding-top: 30px;
-    /*  đẩy nội dung xuống 15px */
     text-align: center;
 
 }
 
 .navbar a {
-
     color: white;
     font-size: 18px;
     text-decoration: none;

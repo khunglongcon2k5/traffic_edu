@@ -16,6 +16,7 @@ session_start();
         <h1>HỌC LÝ THUYẾT THI LÁI XE MÔ TÔ </h1>
         <p>Nắm vững kiến thức, lái xe an toàn </p>
     </header>
+
     <nav class="menu">
         <ul>
             <li><a href="../index.php"> Trang chủ </a></li>
@@ -24,18 +25,18 @@ session_start();
             <li><a href="penalties.php"> Xử phạt </a></li>
             <li><a href="quiz.php"> Kiểm tra</a> </li>
             <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
-                    <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
-                    <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-                </div>
+                <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+            </div>
             <?php endif; ?>
         </ul>
     </nav>
+
     <div class="box-container">
         <div class="left-column">
             <div class="toc-header">
                 <span class="toc-icon">&#9776;</span>
                 <span class="toc-title">Mục lục</span>
-                <!-- <span class="toc-arrow">&#x25BC;</span> -->
             </div>
             <ol class="toc-list">
                 <li><a href="rules.php">Luật giao thông đường bộ </a></li>
@@ -47,6 +48,7 @@ session_start();
                 <li><a href="../index.php?sidebar=auth&tab=register">Đăng ký thi bằng lái xe </a></li>
             </ol>
         </div>
+
         <div class="center-column">
             <div class="content">
                 <h2>Chào mừng đến với Hệ thống học Lý thuyết Giao thông đường bộ </h2>
@@ -101,6 +103,7 @@ session_start();
                     nếu bạn cần bất kỳ sự trợ giúp nào!</p>
             </div>
         </div>
+
         <div class="right-column">
             <div class="thithu"><a href="thi-bang-lai-xe-a1-online.php">Thi thử</a> </div><br>
             <div class="noidung">

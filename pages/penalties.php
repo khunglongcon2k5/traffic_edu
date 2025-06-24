@@ -25,9 +25,9 @@ session_start();
             <li><a href="penalties.php"> Xử phạt </a></li>
             <li><a href="quiz.php"> Kiểm tra</a> </li>
             <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
-                    <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
-                    <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-                </div>
+                <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+            </div>
             <?php endif; ?>
         </ul>
     </nav>
@@ -36,7 +36,6 @@ session_start();
             <div class="toc-header">
                 <span class="toc-icon">&#9776;</span>
                 <span class="toc-title">Mục lục</span>
-                <!-- <span class="toc-arrow">&#x25BC;</span> -->
             </div>
             <ol class="toc-list">
                 <li><a href="rules.php">Luật giao thông đường bộ </a></li>
@@ -73,12 +72,10 @@ session_start();
                                     <td>2 - 3 triệu đồng</td>
                                 </tr>
                                 <tr>
-                                    <!-- <td>Xe máy </td> -->
                                     <td>50 - 80mg/100ml máu hoặc 0,25 - 0,4mg/lít khí thở</td>
                                     <td>4 - 5 triệu đồng</td>
                                 </tr>
                                 <tr>
-                                    <!-- <td>Xe máy </td> -->
                                     <td>Trên 80mg/100ml máu hoặc trên 0,4mg/lít khí thở</td>
                                     <td>6 - 8 triệu đồng</td>
                                 </tr>
@@ -88,12 +85,10 @@ session_start();
                                     <td>7 - 10 triệu đồng</td>
                                 </tr>
                                 <tr>
-                                    <!-- <td>Ô tô </td> -->
                                     <td>50 - 80mg/100ml máu hoặc 0,25 - 0,4mg/lít khí thở</td>
                                     <td>16 - 18 triệu đồng</td>
                                 </tr>
                                 <tr>
-                                    <!-- <td>Ô tô </td> -->
                                     <td>Trên 80mg/100ml máu hoặc trên 0,4mg/lít khí thở</td>
                                     <td>30 - 40 triệu đồng</td>
                                 </tr>

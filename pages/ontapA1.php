@@ -2,7 +2,6 @@
 include "../includes/config.php";
 session_start();
 isset($_POST['set_id']) ? $set_id = intval($_POST['set_id']) : $set_id = 1;
-// Kiểm tra kết nối
 
 $limit = 25;
 
@@ -79,10 +78,8 @@ if (isset($question_ranges[$set_id])) {
                         echo '<div class="question-box">';
                         echo "<h3>Câu $count: {$q["question_text"]}</h3>";
                         if (!empty($q['question_image'])) {
-                            // Lấy tên tệp từ đường dẫn
                             $filename = basename($q['question_image']);
                             $correctPath = "../assets/img/" . $filename;
-                            // Kiem tra file ton tai tren server(tranh duong dan sai)
                             if (file_exists($correctPath)) {
                                 echo "<img src='$correctPath' alt='Hình minh họa' >";
                             }
@@ -98,11 +95,12 @@ if (isset($question_ranges[$set_id])) {
                 ?>
             </div>
         </div>
+
         <div class="finish-btn">
             <button onclick="location.href='chondeA1.php'">Kết thúc</button>
         </div>
-        <?php include './widget/footer.php'; ?>
 
+        <?php include './widget/footer.php'; ?>
     </div>
 </body>
 

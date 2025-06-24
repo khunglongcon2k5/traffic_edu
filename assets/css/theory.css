@@ -58,36 +58,25 @@ body {
     font-size: 20px;
 }
 
-/*Thêm responsitive để tối ưu trên điện thoại */
-/* Trên điện thoại, 3 cột sẽ xếp dọc, dễ đọc và dễ cuộn */
 .box-container {
     display: flex;
-    /* Để các cột hiển thị nằm ngang */
     gap: 20px;
     padding: 20px;
     flex-wrap: wrap;
-    /* Cho phép các cột xuống dòng khi không đủ không gian OPTIMIZE */
 }
 
 .right-column {
     flex: 1;
-    /*Cột phải chiếm 1 phần tổng không gian */
     padding: 50px;
     background-color: #f0f0f0;
     border-radius: 10px;
     min-width: 300px;
-    /* Đảm bảo mỗi cột có độ rộng tối thiểu OPTIMIZE */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    /* Thêm bóng đổ nhẹ cho các cột OPTIMIZE */
     box-sizing: border-box;
-    /* Đảm bảo padding không làm tăng kích thước cột OPTIMIZE */
 }
-
-/* Note: Tổng là 1 + 2 + 1 = 4 phần, nên cột giữa chiếm 50%, hai cột còn lại mỗi cột chiếm 25%.*/
 
 .center-column {
     flex: 2;
-    /* Cột giữa sẽ chiếm gấp đôi so với cột hai bên */
     background-image: url('../img/image2.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -126,24 +115,16 @@ table tbody tr td {
 
 }
 
-
-
-
 /* ...CSS FOR LEFT-COLUMN... */
-
 .left-column {
     height: 290px;
     flex: 1;
-    /*Cột trái chiếm 1 phần tổng không gian */
     padding: 30px;
     background-color: #f0f0f0;
     border-radius: 10px;
     min-width: 300px;
-    /* Đảm bảo mỗi cột có độ rộng tối thiểu OPTIMIZE */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    /* Thêm bóng đổ nhẹ cho các cột OPTIMIZE */
     box-sizing: border-box;
-    /* Đảm bảo padding không làm tăng kích thước cột OPTIMIZE */
     border: 2px solid #333;
     border-radius: 8px;
 }
@@ -250,7 +231,6 @@ footer {
 
 
 /* ---CSS FOR RIGHT COLUMN--- */
-
 .thithu {
     width: 150px;
     height: 50px;
@@ -269,17 +249,14 @@ footer {
     ;
 }
 
-/* Khi rê chuột vào */
 .thithu:hover {
     background: linear-gradient(to right, #007acc, #9a9b3e);
     color: white;
 }
 
-/* Khi nhấn giữ chuột */
 .thithu:active {
     background: linear-gradient(to right, #ffcc00, #ffdd33);
     transform: scale(0.98);
-    /* hiệu ứng nhấn xuống nhẹ */
 }
 
 img {

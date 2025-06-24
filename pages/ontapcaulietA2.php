@@ -51,9 +51,6 @@ $stmt->close();
         <?php include './widget/header.php'; ?>
         <h2>BỘ ĐỀ ÔN TẬP THI THỬ BẰNG LÁI XE A1 </h2>
         <div class="exam-container">
-            <!-- Cột bên trái -->
-
-            <!-- Cột bên phải -->
             <?php
             $count = 1;
             if (!empty($questions)) {
@@ -61,10 +58,8 @@ $stmt->close();
                     echo '<div class="question-box">';
                     echo "<h3>Câu $count: {$q["question_text"]}</h3>";
                     if (!empty($q['question_image'])) {
-                        // Lấy tên tệp từ đường dẫn
                         $filename = basename($q['question_image']);
                         $correctPath = "../assets/img/" . $filename;
-                        // Kiem tra file ton tai tren server(tranh duong dan sai)
                         if (file_exists($correctPath)) {
                             echo "<img src='$correctPath' alt='Hình minh họa' style='max-width: 500px; display:block; margin-top:10px;'>";
                         }
@@ -78,16 +73,14 @@ $stmt->close();
                 echo "<p>Không có câu hỏi nào.</p>";
             }
             ?>
-
-
         </div>
+
         <div class="finish-btn">
             <button onclick="location.href='chondeA2.php'">Kết thúc</button>
         </div>
+
         <?php include './widget/footer.php'; ?>
-
     </div>
-
 </body>
 
 </html>
