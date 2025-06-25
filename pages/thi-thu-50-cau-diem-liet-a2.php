@@ -16,7 +16,7 @@ function getQuestionsBySet($conn, $set_id)
     list($start_id, $end_id) = $critical_questions[$set_id];
 
     $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id");
-    $stmt->bind_param("iii", $start_id, $end_id);
+    $stmt->bind_param("ii", $start_id, $end_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -45,7 +45,7 @@ function getAnswersForQuestion($conn, $question_id)
 
 $set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 40;
 
-$questions = getQuestionsBySet($conn, $set_id, 50);
+$questions = getQuestionsBySet($conn, $set_id);
 
 $stmt = $conn->prepare(
     "SELECT es.set_name, ec.category_name, ec.time_limit

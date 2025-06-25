@@ -4,7 +4,7 @@ require_once '../includes/config.php';
 
 $current_page = basename($_SERVER['PHP_SELF']);
 
-function getQuestionsBySet($conn, $set_id, $limit = 25)
+function getQuestionsBySet($conn, $set_id)
 {
     $question_ranges = [
         1 => [1, 25],
@@ -22,8 +22,8 @@ function getQuestionsBySet($conn, $set_id, $limit = 25)
 
     list($start_id, $end_id) = $question_ranges[$set_id];
 
-    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT ?");
-    $stmt->bind_param("iii", $start_id, $end_id, $limit);
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id");
+    $stmt->bind_param("ii", $start_id, $end_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -56,7 +56,6 @@ $set_id = (isset($_GET['set_id']) && $_GET['set_id'] >= 1 && $_GET['set_id'] <= 
 
 $questions = getQuestionsBySet($conn, $set_id, 25);
 
-// Lấy thông tin đề thi
 $stmt = $conn->prepare(
     "SELECT es.set_name, ec.category_name
      FROM exam_sets es
