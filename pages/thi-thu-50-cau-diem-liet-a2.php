@@ -4,7 +4,7 @@ require_once '../includes/config.php';
 
 $current_page = basename($_SERVER['PHP_SELF']);
 
-function getQuestionsBySet($conn, $set_id, $limit = 50)
+function getQuestionsBySet($conn, $set_id)
 {
     $critical_questions = [
         40 => [651, 700]
@@ -15,8 +15,8 @@ function getQuestionsBySet($conn, $set_id, $limit = 50)
 
     list($start_id, $end_id) = $critical_questions[$set_id];
 
-    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT ?");
-    $stmt->bind_param("iii", $start_id, $end_id, $limit);
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id");
+    $stmt->bind_param("iii", $start_id, $end_id);
     $stmt->execute();
     $result = $stmt->get_result();
 

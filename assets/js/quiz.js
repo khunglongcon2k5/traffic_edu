@@ -25,6 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const examForm = document.getElementById('exam-form');
 
+    if (!examForm) {
+        console.error('Không tìm thấy .exam-form');
+        return;
+    }
+
     const timer = setInterval(() => {
         totalSeconds--;
         const mins = Math.floor(totalSeconds / 60);
@@ -43,11 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 1000);
 
-    // Question Navigation
     const questionBtns = document.querySelectorAll('.question-btn');
     const questionPanels = document.querySelectorAll('.question-panel');
 
-    // Xử lý submit form
     if (examForm) {
         examForm.addEventListener('submit', (e) => {
             const confirmed = confirm('Bạn có chắc chắn muốn nộp bài hay không?');
@@ -57,20 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Function để chuyển câu hỏi
     function showQuestion(questionNumber) {
-        // Ẩn tất cả câu hỏi
         questionPanels.forEach(panel => {
             panel.style.display = 'none';
         });
 
-        // Hiển thị câu hỏi được chọn
         const targetPanel = document.getElementById(`question-${questionNumber}`);
         if (targetPanel) {
             targetPanel.style.display = 'block';
         }
 
-        // Cập nhật trạng thái active cho nút
         questionBtns.forEach(btn => btn.classList.remove('active'));
         const activeBtn = document.querySelector(`.question-btn[data-question="${questionNumber}"]`);
         if (activeBtn) {
@@ -78,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Xử lý click vào số câu hỏi
     questionBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -89,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Xử lý nút navigation (Câu trước & Câu tiếp theo)
     document.addEventListener('click', (e) => {
         if (e.target.closest('.prev-btn') || e.target.closest('.next-btn')) {
             e.preventDefault();
@@ -101,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Xử lý radio buttons để đánh dấu câu đã trả lời
     document.addEventListener('change', (e) => {
         if (e.target.type === 'radio') {
             const questionPanel = e.target.closest('.question-panel');

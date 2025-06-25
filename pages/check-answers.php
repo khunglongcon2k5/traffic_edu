@@ -3,7 +3,7 @@ session_start();
 require_once '../includes/config.php';
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['user']['id'])) {
-    header("Location: ../index.php?sidebar=auth&tab=register");
+    header("Location: ../index.php?sidebar=auth");
     exit();
 }
 
@@ -35,18 +35,16 @@ function getAnswersForQuestion($conn, $question_id)
     return $answersForQuestion;
 }
 
-// Get exam info 
 $stmt = $conn->prepare("SELECT set_name FROM exam_sets WHERE set_id = ?");
 $stmt->bind_param("i", $set_id);
 $stmt->execute();
 $exam_info = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-// Get questions based on set_id
 $questions = [];
 if ($set_id >= 1 && $set_id <= 8) {
     list($start_id, $end_id) = [($set_id - 1) * 25 + 1, $set_id * 25];
-    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT 25");
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id");
     $stmt->bind_param("ii", $start_id, $end_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -57,11 +55,7 @@ if ($set_id >= 1 && $set_id <= 8) {
 } elseif ($set_id == 21) {
     $critical_ids = [3, 5, 12, 28, 29, 30, 33, 53, 54, 79, 104, 108, 129, 135, 152, 153, 154, 177, 179, 701];
     $placeholders = implode(',', array_fill(0, count($critical_ids), '?'));
-    $stmt = $conn->prepare(
-        "SELECT * 
-         FROM questions 
-         WHERE question_id IN ($placeholders) LIMIT 20"
-    );
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders)");
     $types = str_repeat('i', count($critical_ids));
     $stmt->bind_param($types, ...$critical_ids);
     $stmt->execute();
@@ -73,7 +67,7 @@ if ($set_id >= 1 && $set_id <= 8) {
 } elseif ($set_id >= 22 && $set_id <= 39) {
     $set_offset = $set_id - 22;
     list($start_id, $end_id) = [201 + ($set_offset * 25), 200 + (($set_offset + 1) * 25)];
-    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id LIMIT 25");
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id BETWEEN ? AND ? ORDER BY question_id");
     $stmt->bind_param("ii", $start_id, $end_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -84,7 +78,7 @@ if ($set_id >= 1 && $set_id <= 8) {
 } elseif ($set_id == 40) {
     $critical_ids_a2 = range(651, 700);
     $placeholders = implode(',', array_fill(0, count($critical_ids_a2), '?'));
-    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders) LIMIT 50");
+    $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders)");
     $types = str_repeat('i', count($critical_ids_a2));
     $stmt->bind_param($types, ...$critical_ids_a2);
     $stmt->execute();
@@ -97,7 +91,6 @@ if ($set_id >= 1 && $set_id <= 8) {
     $questions = [];
 }
 
-// Calculate results
 $total_questions = count($questions);
 $correct_count = 0;
 $has_critical_error = false;
@@ -124,12 +117,10 @@ foreach ($questions as $questions_id => $question) {
 
 $wrong_count = $total_questions - $correct_count;
 
-// Determine pass/fail
 $pass = (!$has_critical_error && $correct_count >= 21);
 $has_critical_error = $has_critical_error ? 1 : 0;
 $pass_value = $pass ? 1 : 0;
 
-// Save result to database
 $stmt = $conn->prepare("INSERT INTO exam_results (user_id, set_id, total_questions, correct_count, wrong_count, has_critical_error, passed) VALUES (?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("iiiiiii", $user_id, $set_id, $total_questions, $correct_count, $wrong_count, $has_critical_error, $pass_value);
 $stmt->execute();
@@ -262,7 +253,9 @@ $stmt->close();
                     } elseif ($set_id == 40) {
                         echo 'thi-thu-50-cau-diem-liet-a2.php?set_id=' . $set_id;
                     }
-                    ?>" class="retry-button">Làm Lại Bài Thi</a>
+                    ?>" class="retry-button">
+            Làm Lại Bài Thi
+        </a>
     </div>
 </body>
 

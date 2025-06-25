@@ -79,13 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = e => {
-                    // Xóa preview cũ nếu có
                     const existingPreview = input.parentNode.querySelector('.image-preview');
                     if (existingPreview) {
                         existingPreview.remove();
                     }
 
-                    // Tạo preview mới
                     const preview = document.createElement('div');
                     preview.classList.add('image-preview');
                     preview.innerHTML = `
@@ -98,9 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const removeBtn = preview.querySelector('.remove-preview-btn');
                     removeBtn.addEventListener('click', () => {
-                        // Xóa preview
                         preview.remove();
-                        // Reset input file
                         input.value = '';
                     });
 
@@ -118,7 +114,6 @@ function removeAnswer(button) {
     if (document.querySelectorAll('.answer-group').length > 2) {
         button.closest('.answer-group').remove();
 
-        // Cập nhật lại index sau khi xóa
         const answerGroups = document.querySelectorAll('.answer-group');
         answerGroups.forEach((group, index) => {
             const checkbox = group.querySelector('input[name="is_correct[]"]');
