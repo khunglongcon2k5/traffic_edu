@@ -35,12 +35,12 @@ function getAnswersForQuestion($conn, $question_id)
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $answersForQuestion = [];
+    $answers = [];
     while ($row = $result->fetch_assoc())
-        $answersForQuestion[] = $row;
+        $answers[] = $row;
 
     $stmt->close();
-    return $answersForQuestion;
+    return $answers;
 }
 
 $set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 40;
@@ -92,7 +92,7 @@ $stmt->close();
             <div class="question-nav">
                 <div class="question-nav-header">
                     <h4>
-                        <span style=" color: #1d4ed8;">Câu hỏi | Đề:</span>
+                        <span style="color: #1d4ed8;">Câu hỏi | Đề:</span>
                         <span style="color: #dc2626;">50</span>
                         Câu Hỏi Điểm Liệt A2
                     </h4>
