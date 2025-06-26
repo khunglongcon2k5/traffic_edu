@@ -242,7 +242,7 @@ unset($_SESSION['message']);
     <div class="overlay <?php echo $sidebar === 'auth' || $sidebar === 'logout' ? 'active' : ''; ?>"></div>
     <?php if ($message): ?>
         <div class="toast-container">
-            <div class="toast <?php echo strpos($message, 'thành công') !== false ? 'success' : 'error'; ?>">
+            <div class="toast <?php echo str_contains($message, 'thành công') ? 'success' : 'error'; ?>">
                 <?php echo $message; ?>
             </div>
         </div>

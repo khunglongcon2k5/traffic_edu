@@ -54,14 +54,9 @@ function getAnswersForQuestion($conn, $question_id)
 
 $set_id = (isset($_GET['set_id']) && $_GET['set_id'] >= 1 && $_GET['set_id'] <= 8) ? (int)$_GET['set_id'] : 1;
 
-$questions = getQuestionsBySet($conn, $set_id, 25);
+$questions = getQuestionsBySet($conn, $set_id);
 
-$stmt = $conn->prepare(
-    "SELECT es.set_name, ec.category_name
-     FROM exam_sets es
-     JOIN exam_categories ec ON es.category_id = ec.category_id
-     WHERE es.set_id = ?"
-);
+$stmt = $conn->prepare("SELECT es.set_name, ec.category_name FROM exam_sets es JOIN exam_categories ec ON es.category_id = ec.category_id WHERE es.set_id = ?");
 $stmt->bind_param("i", $set_id);
 $stmt->execute();
 $exam_info = $stmt->get_result()->fetch_assoc();

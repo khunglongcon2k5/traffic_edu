@@ -24,10 +24,11 @@ session_start();
             <li><a href="signs.php"> Biển báo </a></li>
             <li><a href="penalties.php"> Xử phạt </a></li>
             <li><a href="quiz.php"> Kiểm tra</a> </li>
-            <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
-                <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
-                <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
-            </div>
+            <?php if (isset($_SESSION['user'])): ?>
+                <div class="user-info">
+                    <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                    <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
+                </div>
             <?php endif; ?>
         </ul>
     </nav>
@@ -68,7 +69,8 @@ session_start();
                                     style="color: red;">P (cấm)</i> và <i style="color: red;">DP (hết cấm)</i>.</p>
                             <image
                                 src="https://vantaitruonggiang.vn/wp-content/uploads/2017/10/bi%E1%BB%83n-b%C3%A1o-c%E1%BA%A5m-%C4%91%C6%B0%E1%BB%9Dng-b%E1%BB%99.jpg"
-                                style="margin: 10px 70px 50px 70px; width: 600px; height: 500px;"></image>
+                                style="margin: 10px 70px 50px 70px; width: 600px; height: 500px;">
+                            </image>
                         </li>
                         <li>
                             <b>Biển báo nguy hiểm. </b>
@@ -80,7 +82,8 @@ session_start();
                                 hiểm người lái xe phải<b> giảm tốc độ.</b></p>
                             <image
                                 src="https://bizweb.dktcdn.net/100/415/690/files/cac-nhom-bien-bao-giao-thong-3.jpg?v=1665805557437.jpg"
-                                style="margin: 10px 70px 50px 70px; width: 600px; height: 600px;"></image>
+                                style="margin: 10px 70px 50px 70px; width: 600px; height: 600px;">
+                            </image>
                         </li>
                         <li>
                             <p><b>Biển báo hiệu lệnh. </b>Có dạng: Hình tròn, nền xanh lam với hình vẽ màu trắng.</p>
@@ -88,7 +91,8 @@ session_start();
                                 lệnh trên biển báo (trừ một số trường hợp đặc biệt). Biển báo hiệu lệnh gồm 10 kiểu và
                                 được đánh số thứ tự từ 301 đến 310.</p>
                             <image src="https://proauto.vn/wp-content/uploads/2024/04/bien-bao-hieu-lenh-1.png"
-                                style="margin: 10px 70px 50px 70px; width: 600px; height: 400px;"></image>
+                                style="margin: 10px 70px 50px 70px; width: 600px; height: 400px;">
+                            </image>
                         </li>
                         <li>
                             <p><b>Biển báo chỉ dẫn. </b></p>
@@ -96,7 +100,8 @@ session_start();
                             <p><b>Tác dụng: </b>Hướng dẫn cho người tham gia giao thông biết những hướng cần thiết hoặc
                                 những điều có ích khác, giúp họ tham gia giao thông thuận lợi trên đường.</p>
                             <image src="https://baogiaothong.mediacdn.vn/files/dung.pham/2016/05/04/11-1539.jpg"
-                                style="margin: 10px 70px 40px 70px; width: 600px; height: 600px;"></image>
+                                style="margin: 10px 70px 40px 70px; width: 600px; height: 600px;">
+                            </image>
                         </li>
                         <li>
                             <p><b>Biển báo phụ </b></p>
@@ -107,7 +112,8 @@ session_start();
                                 đó.</p>
                             <image
                                 src="https://vantaitruonggiang.vn/wp-content/uploads/2017/10/Bi%E1%BB%83n-b%C3%A1o-ph%E1%BB%A5.jpg"
-                                style="margin: 10px 70px 50px 70px; width: 600px; height: 400px;"></image>
+                                style="margin: 10px 70px 50px 70px; width: 600px; height: 400px;">
+                            </image>
                         </li>
                         <li>
                             <p><b>Biển báo Vạch kẻ đường</b></p>
@@ -117,7 +123,8 @@ session_start();
                             <p>Vạch kẻ đường có 2 loại là vạch kẻ đường nằm đứng và vạch kẻ đường nằm ngang</p>
                             <image
                                 src="https://vantaitruonggiang.vn/wp-content/uploads/2017/10/V%E1%BA%A1ch-k%E1%BA%BB-%C4%91%C6%B0%E1%BB%9Dng.jpg"
-                                style="margin: 10px 70px 50px 70px; width: 600px; height: 400px;"></image>
+                                style="margin: 10px 70px 50px 70px; width: 600px; height: 400px;">
+                            </image>
                         </li>
                     </ol>
                 </div>
@@ -138,9 +145,12 @@ session_start();
 
                 <p>🧪 <i>03 hướng dẫn cực kì quan trọng trong ngày thi, nên chú ý: </i></p>
                 <ol>
-                    <li><a
+                    <li>
+                        <a
                             href="https://lapphuongthanh.vn/pic/FileLibrary/images/Neutral%20Colored%20How%20To%20Infographic-4.png">Ngày
-                            thi sát hạch (Xem ngay) </a></li>
+                            thi sát hạch (Xem ngay)
+                        </a>
+                    </li>
                     <li><a href="sat-hach-ly-thuyet-a1.php">Sát hạch lý thuyết (Xem ngay)</a></li>
                     <li><a href="https://youtu.be/ISJeeUw_xKs">Sát hạch thực hành (Xem ngay)</a></li>
                 </ol>

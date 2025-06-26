@@ -3,14 +3,12 @@ $per_page = 25;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1 ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $per_page;
 
-// Lấy tổng số câu hỏi
 $stmt_count = $conn->prepare("SELECT COUNT(*) as total FROM questions");
 $stmt_count->execute();
 $total_rows = $stmt_count->get_result()->fetch_assoc()['total'];
 $total_pages = ceil($total_rows / $per_page);
 $stmt_count->close();
 
-// Lấy danh sách câu hỏi theo trang
 $stmt = $conn->prepare("SELECT * FROM questions ORDER BY question_id LIMIT ? OFFSET ?");
 $stmt->bind_param("ii", $per_page, $offset);
 $stmt->execute();

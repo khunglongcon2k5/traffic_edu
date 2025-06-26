@@ -18,8 +18,7 @@ function getQuestionsBySet($conn, $set_id)
 
     $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id IN ($placeholders)");
     $types = str_repeat('i', count($ids));
-    $params = array_merge($ids);
-    $stmt->bind_param($types, ...$params);
+    $stmt->bind_param($types, ...$ids);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -48,7 +47,7 @@ function getAnswersForQuestion($conn, $question_id)
 
 $set_id = isset($_GET['set_id']) ? (int)$_GET['set_id'] : 21;
 
-$questions = getQuestionsBySet($conn, $set_id, 20);
+$questions = getQuestionsBySet($conn, $set_id);
 
 $stmt = $conn->prepare(
     "SELECT es.set_name, ec.category_name, ec.time_limit

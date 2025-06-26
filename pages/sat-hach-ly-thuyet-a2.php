@@ -24,7 +24,8 @@ session_start();
             <li><a href="signs.php"> Biển báo </a></li>
             <li><a href="penalties.php"> Xử phạt </a></li>
             <li><a href="quiz.php"> Kiểm tra</a> </li>
-            <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
+            <?php if (isset($_SESSION['user'])): ?>
+                <div class="user-info">
                     <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
                     <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
                 </div>
@@ -125,7 +126,7 @@ session_start();
         <h5>✅ Bước 5: Nộp bài và xem kết quả: </h5>
         <ul>
             <li>Sau khi bấm "<b>Nộp bài</b>", hệ thống tự động chấm điểm. </li>
-            <li>Màn hình sẽ hiên hiểnthij kết quả: <b>Số câu đúng /25</b> và trạng thái <b>ĐẠT /KHÔNG ĐẠT</b>. </li>
+            <li>Màn hình sẽ hiển thị kết quả: <b>Số câu đúng 21/25</b> và trạng thái <b>ĐẠT/KHÔNG ĐẠT</b>. </li>
         </ul>
         <img src="https://daotaolaixehd.com.vn/wp-content/uploads/2017/01/4.jpg"
             style="margin-left: 100px; width: 500px; height: 350px;" />

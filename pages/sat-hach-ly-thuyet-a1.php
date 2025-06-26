@@ -24,7 +24,8 @@ session_start();
             <li><a href="signs.php"> Biển báo </a></li>
             <li><a href="penalties.php"> Xử phạt </a></li>
             <li><a href="quiz.php"> Kiểm tra</a> </li>
-            <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
+            <?php if (isset($_SESSION['user'])): ?>
+                <div class="user-info">
                     <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
                     <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
                 </div>

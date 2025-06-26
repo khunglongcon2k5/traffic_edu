@@ -18,7 +18,8 @@
         <a href="./chondeA2.php">Ôn Tập A2</a>
         <a href='./ontapcaulietA1.php'>Ôn 20 câu Điểm Liệt</a>
         <a href="./ontapcaulietA2.php">Ôn 50 Câu Điểm Liệt</a>
-        <?php if (isset($_SESSION['user'])): ?> <div class="user-info">
+        <?php if (isset($_SESSION['user'])): ?>
+            <div class="user-info">
                 <i class="fa-solid fa-user-tie"></i><?php echo htmlspecialchars($_SESSION['user']['name']); ?>
                 <a href="../includes/logout.php" class="btn btn-logout">Đăng xuất</a>
             </div>
