@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once './includes/config.php';
 
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 1800)) {
     session_unset();
@@ -11,10 +12,6 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 
 
 $_SESSION['last_activity'] = time();
 
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
 $sidebar = isset($_GET['sidebar']) ? $_GET['sidebar'] : '';
 $auth_tab = isset($_GET['tab']) ? $_GET['tab'] : 'login';
 $show_user_info = isset($_GET['show']) && $_GET['show'] === 'user_info';
@@ -22,7 +19,6 @@ $show_change_password = isset($_GET['show']) && $_GET['show'] === 'change_passwo
 
 $user_info = [];
 if ($show_user_info && isset($_SESSION['user']['id'])) {
-    $conn = new mysqli('localhost', 'root', '', 'traffic');
     if (!$conn->connect_error) {
         $userId = $_SESSION['user']['id'];
         $stmt = $conn->prepare("SELECT name, email FROM users WHERE id = ?");
@@ -38,7 +34,6 @@ if ($show_user_info && isset($_SESSION['user']['id'])) {
 
 $message = isset($_SESSION['message']) ? htmlspecialchars($_SESSION['message']) : '';
 unset($_SESSION['message']);
-unset($_SESSION['message_time']);
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +52,6 @@ unset($_SESSION['message_time']);
 </head>
 
 <body>
-    <!-- Phần đầu trang với thanh điều hướng -->
     <header>
         <div class="navbar">
             <div class="logo">Traffic Education</div>
@@ -128,11 +122,10 @@ unset($_SESSION['message_time']);
             <a href="?sidebar=auth&tab=register"
                 class="tab-button <?php echo $auth_tab === 'register' ? 'active' : ''; ?>">Đăng ký</a>
         </div>
-        <!-- Form đăng nhập -->
+
         <form action="./includes/auth.php" method="POST"
             class="auth-form <?php echo $auth_tab === 'login' ? 'active' : ''; ?>">
             <input type="hidden" name="action" value="login">
-            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <div class="input-group">
                 <label for="loginUsername">Tên đăng nhập</label>
                 <div class="input-wrapper">
@@ -149,11 +142,10 @@ unset($_SESSION['message_time']);
             </div>
             <button type="submit" class="submit-btn">Đăng nhập</button>
         </form>
-        <!-- Form đăng ký -->
+
         <form action="./includes/auth.php" method="POST"
             class="auth-form <?php echo $auth_tab === 'register' ? 'active' : ''; ?>">
             <input type="hidden" name="action" value="register">
-            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <div class="input-group">
                 <label for="registerName">Họ và tên</label>
                 <div class="input-wrapper">
@@ -214,7 +206,6 @@ unset($_SESSION['message_time']);
             <h3 class="sidebar-subtitle">Đổi mật khẩu</h3>
             <form action="./includes/change_password.php" method="POST" class="change-password-form">
                 <input type="hidden" name="action" value="change_password">
-                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div class="input-group">
                     <label for="currentPassword">Mật khẩu hiện tại</label>
                     <div class="input-wrapper">
@@ -244,7 +235,6 @@ unset($_SESSION['message_time']);
 
         <form action="./includes/logout.php" method="POST">
             <input type="hidden" name="action" value="logout">
-            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <button type="submit" class="logout-btn">Đăng xuất</button>
         </form>
     </div>

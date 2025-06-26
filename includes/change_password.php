@@ -2,7 +2,7 @@
 session_start();
 require_once 'config.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user']['id']) || !isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user']['id'])) {
     $_SESSION['message'] = 'Yêu cầu không hợp lệ';
     header('Location: ../index.php?sidebar=logout&show=change_password');
     exit;

@@ -12,19 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 if (isset($_POST['action']) && $_POST['action'] === 'login') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
-    $csrf_token = $_POST['csrf_token'];
-
-    if (!hash_equals($_SESSION['csrf_token'], $csrf_token)) {
-        $_SESSION['message'] = 'Yêu cầu không hợp lệ!';
-        header('Location: ../index.php');
-        exit;
-    }
 
     $stmt = $conn->prepare("SELECT id, name, password, role FROM users WHERE username = ? OR email = ?");
     $stmt->bind_param("ss", $username, $username);
     $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+    $user = $stmt->get_result()->fetch_assoc();
     $stmt->close();
 
     if ($user && verifyPassword($password, $user['password'])) {
@@ -35,11 +27,9 @@ if (isset($_POST['action']) && $_POST['action'] === 'login') {
         ];
         $_SESSION['is_admin'] = $user['role'] === 'admin';
         $_SESSION['message'] = 'Đăng nhập thành công!';
-        if ($user['role'] === 'admin') {
-            header('Location: ../admin/dashboard.php');
-        } else {
-            header('Location: ../index.php');
-        }
+
+        $redirect = $user['role'] === 'admin' ? '../admin/dashboard.php' : '../index.php';
+        header('Location: ' . $redirect);
     } else {
         $_SESSION['message'] = 'Tên đăng nhập hoặc mật khẩu không đúng!';
         header('Location: ../index.php');
@@ -53,13 +43,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'register') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
-    $csrf_token = $_POST['csrf_token'];
-
-    if (!hash_equals($_SESSION['csrf_token'], $csrf_token)) {
-        $_SESSION['message'] = 'Yêu cầu không hợp lệ!';
-        header('Location: ../index.php');
-        exit;
-    }
 
     if ($password !== $confirmPassword) {
         $_SESSION['message'] = 'Mật khẩu không khớp!';
@@ -75,11 +58,10 @@ if (isset($_POST['action']) && $_POST['action'] === 'register') {
 
     if (addUserAccount($name, $username, $email, $password, 'user')) {
         $_SESSION['message'] = 'Đăng ký thành công! Vui lòng đăng nhập.';
-        header('Location: ../index.php');
     } else {
         $_SESSION['message'] = 'Đăng ký thất bại! Vui lòng thử lại.';
-        header('Location: ../index.php');
     }
+    header('Location: ../index.php');
     exit;
 }
 

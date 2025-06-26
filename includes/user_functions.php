@@ -14,25 +14,26 @@ function verifyPassword($password, $hashedPassword)
 function addUserAccount($name, $username, $email, $password, $role = 'user')
 {
     global $conn;
-    $hashed_password = createPasswordHash($password);
 
-    $sql = "INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) 
-            VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
+    $hashed_password = createPasswordHash($password);
+    $stmt = $conn->prepare("INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES (?, ?, ?, ?, ?)");
+
     if ($stmt) {
         $stmt->bind_param("sssss", $name, $username, $email, $hashed_password, $role);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
     }
+
     return false;
 }
 
 function checkUserExists($username, $email)
 {
     global $conn;
-    $sql = "SELECT id FROM users WHERE username = ? OR email = ?";
-    $stmt = $conn->prepare($sql);
+
+    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+
     if ($stmt) {
         $stmt->bind_param("ss", $username, $email);
         $stmt->execute();
@@ -41,5 +42,6 @@ function checkUserExists($username, $email)
         $stmt->close();
         return $exists;
     }
+
     return false;
 }
