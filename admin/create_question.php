@@ -2,7 +2,6 @@
 session_start();
 require_once '../includes/config.php';
 
-// Kiểm tra quyền admin
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
     header("Location: ../index.php");
     exit;
@@ -27,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Phải có ít nhất 2 đáp án trong một câu hỏi.");
     }
 
-    // Kiểm tra có ít nhất một đáp án đúng
     $has_correct_answer = false;
     for ($i = 0; $i < count($answer_texts); $i++) {
         if (in_array($i, $is_corrects)) {
@@ -50,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $question_image = $target_file;
     }
 
-    // Thêm câu hỏi 
     $stmt = $conn->prepare("INSERT INTO questions (question_text, question_image, is_critical, set_id) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssii", $question_text, $question_image, $is_critical, $set_id);
     if (!$stmt->execute()) {
@@ -58,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $question_id = $conn->insert_id;
 
-    // Thêm đáp án
     for ($i = 0; $i < count($answer_texts); $i++) {
         $answer_text = $answer_texts[$i];
         $is_correct = in_array($i, $is_corrects) ? 1 : 0;

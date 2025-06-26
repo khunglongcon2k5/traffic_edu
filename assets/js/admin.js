@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (checkbox) {
                 checkbox.value = index;
             }
-            if (textInput && !textInput.placeholder.includes('${')) {
+            if (textInput) {
                 textInput.placeholder = `Đáp án ${index + 1}`;
             }
         });
     }
 
-    document.getElementById('add_answer')?.addEventListener('click', () => {
+    document.getElementById('add_answer').addEventListener('click', () => {
         const answersContainer = document.getElementById('answers');
         const currentAnswerCount = document.querySelectorAll('.answer-group').length;
 
@@ -58,21 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (correctAnswers.length === 0) {
                     e.preventDefault();
                     alert('Vui lòng chọn ít nhất một đáp án đúng!');
-                    return false;
                 }
                 const questionText = form.querySelector('#question_text');
                 if (questionText && questionText.value.trim() === '') {
                     e.preventDefault();
                     alert('Vui lòng nhập nội dung câu hỏi!');
                     questionText.focus();
-                    return false;
                 }
             });
         }
     });
 
     const imageInputs = document.querySelectorAll('input[type="file"]');
-
     imageInputs.forEach(input => {
         input.addEventListener('change', () => {
             const file = input.files[0];

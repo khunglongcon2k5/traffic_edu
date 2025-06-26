@@ -68,13 +68,13 @@ unset($_SESSION['message_time']);
                 <li><a href="./pages/thi-bang-lai-xe-a1-online.php">Thi thử</a></li>
                 <li>
                     <?php if (isset($_SESSION['user']['name'])): ?>
-                    <a href="?sidebar=logout" class="user-account">
-                        <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['user']['name']); ?>
-                    </a>
+                        <a href="?sidebar=logout" class="user-account">
+                            <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                        </a>
                     <?php else: ?>
-                    <a href="?sidebar=auth" class="auth-link">
-                        <i class="fas fa-user"></i> Tài khoản
-                    </a>
+                        <a href="?sidebar=auth" class="auth-link">
+                            <i class="fas fa-user"></i> Tài khoản
+                        </a>
                     <?php endif; ?>
                 </li>
             </ul>
@@ -120,11 +120,9 @@ unset($_SESSION['message_time']);
         <a href="index.php" class="close-sidebar"><i class="fas fa-times"></i></a>
         <h2 class="sidebar-title">Tài khoản</h2>
         <?php if ($message && $sidebar === 'auth'): ?>
-        <!-- Hiển thị thông báo từ session trong thanh bên xác thực -->
-        <div class="auth-message"><?php echo $message; ?></div>
+            <div class="auth-message"><?php echo $message; ?></div>
         <?php endif; ?>
         <div class="auth-tabs">
-            <!-- Các tab để chuyển đổi giữa form đăng nhập và đăng ký -->
             <a href="?sidebar=auth&tab=login"
                 class="tab-button <?php echo $auth_tab === 'login' ? 'active' : ''; ?>">Đăng nhập</a>
             <a href="?sidebar=auth&tab=register"
@@ -205,10 +203,10 @@ unset($_SESSION['message_time']);
         </div>
         <div class="user-info <?php echo $show_user_info ? 'show' : ''; ?>">
             <?php if ($show_user_info && $user_info): ?>
-            <p><strong>Tên:</strong> <?php echo htmlspecialchars($user_info['name']); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($user_info['email']); ?></p>
+                <p><strong>Tên:</strong> <?php echo htmlspecialchars($user_info['name']); ?></p>
+                <p><strong>Email:</strong> <?php echo htmlspecialchars($user_info['email']); ?></p>
             <?php elseif ($show_user_info): ?>
-            <p>Không thể tải thông tin</p>
+                <p>Không thể tải thông tin</p>
             <?php endif; ?>
         </div>
 
@@ -253,11 +251,11 @@ unset($_SESSION['message_time']);
 
     <div class="overlay <?php echo $sidebar === 'auth' || $sidebar === 'logout' ? 'active' : ''; ?>"></div>
     <?php if ($message): ?>
-    <div class="toast-container">
-        <div class="toast <?php echo strpos($message, 'thành công') !== false ? 'success' : 'error'; ?>">
-            <?php echo $message; ?>
+        <div class="toast-container">
+            <div class="toast <?php echo strpos($message, 'thành công') !== false ? 'success' : 'error'; ?>">
+                <?php echo $message; ?>
+            </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <footer>
@@ -303,17 +301,17 @@ unset($_SESSION['message_time']);
     </footer>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const toasts = document.querySelectorAll('.toast');
-        toasts.forEach(toast => {
-            setTimeout(() => {
-                toast.style.opacity = '0';
+        document.addEventListener('DOMContentLoaded', function() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(toast => {
                 setTimeout(() => {
-                    toast.remove();
-                }, 500);
-            }, 3000);
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 500);
+                }, 3000);
+            });
         });
-    });
     </script>
 </body>
 

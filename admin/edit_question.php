@@ -2,20 +2,17 @@
 session_start();
 require_once '../includes/config.php';
 
-// Kiểm tra quyền admin
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
     header("Location: ../index.php");
     exit;
 }
 
-// Lấy ID câu hỏi
 $question_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($question_id <= 0) {
     die("ID câu hỏi không hợp lệ.");
 }
 
-// Lấy thông tin câu hỏi
 $stmt = $conn->prepare("SELECT * FROM questions WHERE question_id = ?");
 $stmt->bind_param("i", $question_id);
 $stmt->execute();
@@ -26,7 +23,6 @@ if (!$question) {
     die("Câu hỏi không tồn tại.");
 }
 
-// Lấy danh sách đáp án
 $stmt = $conn->prepare("SELECT * FROM answers WHERE question_id = ?");
 $stmt->bind_param("i", $question_id);
 $stmt->execute();
@@ -77,14 +73,14 @@ $stmt->close();
                     <label for="question_image">Thêm hình ảnh cần chỉnh sửa (nếu có):</label>
                     <input type="file" id="question_image" name="question_image" accept="image/*">
                     <?php if (!empty($question['question_image']) && $question['question_image'] != '../assets/img/0.jpg'): ?>
-                    <div id="current-image">
-                        <p style="font-weight: 600; margin-top: 10px;">Hình ảnh hiện tại: </p>
-                        <div class="image-preview-container">
-                            <img src="<?php echo htmlspecialchars($question['question_image']); ?>" width="350">
-                            <button type="button" class="remove-preview-btn" onclick="removeCurrentImage()"><i
-                                    class="fa-solid fa-trash"></i></button>
+                        <div id="current-image">
+                            <p style="font-weight: 600; margin-top: 10px;">Hình ảnh hiện tại: </p>
+                            <div class="image-preview-container">
+                                <img src="<?php echo htmlspecialchars($question['question_image']); ?>" width="350">
+                                <button type="button" class="remove-preview-btn" onclick="removeCurrentImage()"><i
+                                        class="fa-solid fa-trash"></i></button>
+                            </div>
                         </div>
-                    </div>
                     <?php endif; ?>
                     <input type="hidden" name="existing_image"
                         value="<?php echo htmlspecialchars($question['question_image']); ?>">
@@ -101,16 +97,16 @@ $stmt->close();
                     <label>Đáp án:</label>
                     <div id="answers">
                         <?php foreach ($answers as $index => $answer): ?>
-                        <div class="answer-group">
-                            <input type="text" name="answer_text[]"
-                                value="<?php echo htmlspecialchars($answer['answer_text']); ?>" required>
-                            <input type="checkbox" name="is_correct[]" value="<?php echo $index; ?>"
-                                <?php echo $answer['is_correct'] ? 'checked' : ''; ?>> Đúng
-                            <textarea
-                                name="explanation[]"><?php echo htmlspecialchars($answer['explanation']); ?></textarea>
-                            <button type="button" class="remove-answer" onclick="removeAnswer(this)"><i
-                                    class="fa-solid fa-trash"></i></button>
-                        </div>
+                            <div class="answer-group">
+                                <input type="text" name="answer_text[]"
+                                    value="<?php echo htmlspecialchars($answer['answer_text']); ?>" required>
+                                <input type="checkbox" name="is_correct[]" value="<?php echo $index; ?>"
+                                    <?php echo $answer['is_correct'] ? 'checked' : ''; ?>> Đúng
+                                <textarea
+                                    name="explanation[]"><?php echo htmlspecialchars($answer['explanation']); ?></textarea>
+                                <button type="button" class="remove-answer" onclick="removeAnswer(this)"><i
+                                        class="fa-solid fa-trash"></i></button>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                     <button type="button" id="add_answer">Thêm đáp án</button>

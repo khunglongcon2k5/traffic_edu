@@ -2,7 +2,6 @@
 session_start();
 require_once '../includes/config.php';
 
-// Kiểm tra quyền admin
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
     header("Location: ../index.php");
     exit;
